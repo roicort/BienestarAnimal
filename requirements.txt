@@ -1,0 +1,15 @@
+Django==4.2.3
+djangorestframework
+django-threadlocals
+django-cors-headers
+django-storages
+psycopg2-binary
+django-filter
+django-auditlog
+firebase-rest-api
+firebase-admin
+drf-dynamic-fields
+django-modelcluster
+django-taggit
+whitenoise
+drf-spectacular
