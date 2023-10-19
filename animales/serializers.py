@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_dynamic_fields import DynamicFieldsMixin
 
-from .models import AnimalCategoria, AnimalInclusion, Animal, PostulacionAdopcion, AnimalFavorito
+from .models import AnimalCategoria, AnimalInclusion, Animal, PostulacionAdopcion, AnimalFavorito, Adopcion, ReportePerdido
 from asociaciones.serializers import PubAsociacionSerializer, CentroSerializer
 from asociaciones.models import Centro
 from base.serializers import HabilidadSerializer
@@ -39,7 +39,7 @@ class AnimalFavoritoSerializer(serializers.ModelSerializer):
 
 
 class AnimalMinSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
-    asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
+    #asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
 
     class Meta:
         model = Animal
@@ -65,14 +65,14 @@ class MiPostulacionAdopcionListSerializer(serializers.ModelSerializer):
 
 class StaffAnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
-    vacante_favorita = serializers.SerializerMethodField('get_vacante_favorita')
+    vacante_favorita = serializers.SerializerMethodField('get_animal_favorito')
     postulado_info = serializers.SerializerMethodField('get_postulado_info')
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)
     habilidades_info = HabilidadSerializer(source='habilidades', read_only=True, many=True)
     inclusiones_info = AnimalInclusionSerializer(source='inclusiones', read_only=True, many=True)
 
-    def get_vacante_favorita(self, instance):
+    def get_animal_favorito(self, instance):
         user = self.context['request'].user
         animales_favoritos = AnimalFavorito.objects.filter(user=user, animal=instance)
         serializer = AnimalFavoritoSerializer(animales_favoritos, many=True, context=self.context)
@@ -91,14 +91,14 @@ class StaffAnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
 class AnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
-    vacante_favorita = serializers.SerializerMethodField('get_vacante_favorita')
+    vacante_favorita = serializers.SerializerMethodField('get_animal_favorito')
     postulado_info = serializers.SerializerMethodField('get_postulado_info')
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)
     habilidades_info = HabilidadSerializer(source='habilidades', read_only=True, many=True)
     inclusiones_info = AnimalInclusionSerializer(source='inclusiones', read_only=True, many=True)
 
-    def get_vacante_favorita(self, instance):
+    def get_animal_favorito(self, instance):
         user = self.context['request'].user
         animales_favoritos = AnimalFavorito.objects.filter(user=user, animal=instance)
         serializer = AnimalFavoritoSerializer(animales_favoritos, many=True, context=self.context)
@@ -114,6 +114,20 @@ class AnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
         model = Animal
         fields = '__all__'
 
+class AdopcionSerializer(serializers.ModelSerializer):
+
+    animal_info = AnimalMinSerializer(source='animal', read_only=True)
+    asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
+
+    class Meta:
+        model = Adopcion
+        fields = '__all__'
+
+
+class ReportePerdidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportePerdido
+        fields = '__all__'
 
 class PostulacionAdopcionSerializer(serializers.ModelSerializer):
     animal_info = AnimalMinSerializer(source='animal', read_only=True)

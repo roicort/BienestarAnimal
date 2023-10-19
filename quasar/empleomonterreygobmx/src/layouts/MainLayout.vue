@@ -231,7 +231,7 @@
                     no-caps
                     class="bg-primary gt-xs"
                     color="white"
-                    to="/animales/publicar"
+                    to="/animales/adopcion/crear"
                   >
                     <span>Publicar adopción</span> <span class="gt-sm"> </span>
                   </q-btn>
@@ -313,7 +313,7 @@
         <q-route-tab
           no-caps
           icon="mdi-bookmark-multiple"
-          to="/animales/favoritos"
+          to="/adopcion/favoritos"
           name="saved"
           label="Guardados"
         >
@@ -321,7 +321,7 @@
         <q-route-tab
           no-caps
           icon="mdi-file-send"
-          to="/animales/adopcion"
+          to="/adopcion/aplicaciones"
           name="applied"
           label="Aplicados"
         >
@@ -461,7 +461,7 @@ import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
 import { useRoute, useRouter } from 'vue-router'
 
-import { getVacantes, getFavoritos, getDetalleVacante } from '../boot/utils'
+import { getAdopciones, getFavoritos, getDetalleAnimal } from '../boot/utils'
 
 import DetalleAnimal from 'src/layouts/DetalleAnimal.vue'
 import BotonCuenta from 'components/common/BotonCuenta.vue'
@@ -529,7 +529,17 @@ export default {
       {
         title: 'Animales',
         icon: 'cruelty_free',
-        path: '/animales/publicados',
+        path: '/animales',
+      },
+      {
+        title: 'Adopciones',
+        icon: 'pets',
+        path: '/animales/adopcion',
+      },
+      {
+        title: 'Reportes',
+        icon: 'travel_explore',
+        path: '/animales/reportes',
       },
     ]
 
@@ -562,8 +572,9 @@ export default {
 
       // Data
 
-      getVacantes(authStore.firebaseUserData.accessToken).then((response) => {
+      getAdopciones(authStore.firebaseUserData.accessToken).then((response) => {
           if(response.length !== 0){
+            console.log('aqui',response)
             siteContext.animales = response
             siteContext.animales_filtrados = response
           }else{
@@ -578,7 +589,8 @@ export default {
     const setSelectedJob = (job) => {
       siteContext.drawerRight = true
       siteContext.loading_job = true
-      getDetalleVacante(authStore.firebaseUserData.accessToken, job.id).then(
+      console.log(job)
+      getDetalleAnimal(authStore.firebaseUserData.accessToken, job.animal).then(
         (response) => {
           siteContext.animal_seleccionado = response
           siteContext.loading_job = false
@@ -588,7 +600,7 @@ export default {
 
     const setCase = (path) => {
 
-      let regexempleo = new RegExp(/(\/animales\/)\d+/)
+      let regexempleo = new RegExp(/(\/adopcion\/)\d+/)
       //let regexempleofav = new RegExp(/(\/empleos\/favoritos\/)\d+/)
 
       siteContext.animales_filtrados = []
@@ -615,7 +627,7 @@ export default {
 
       // Case 3: Empleos Favoritos
 
-      else if (path === '/animales/favoritos') {
+      else if (path === '/adopcion/favoritos') {
         console.log('Case3')
         siteContext.drawerRight = false
         getFavoritos(authStore.firebaseUserData.accessToken).then((favs) => {

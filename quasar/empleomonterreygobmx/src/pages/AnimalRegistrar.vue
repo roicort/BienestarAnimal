@@ -9,7 +9,7 @@
     >
       <div class="text-center">
         <p style="font-size: 30px; margin: 0 0 2px 0">
-          Publicar animal en adopción
+          Registrar animal
         </p>
         <p class="text-grey-8" style="font-size: 0.875rem; font-weight: 400">
           Asegúrate que los datos del animal sean correctos
@@ -85,7 +85,7 @@
                     <template v-slot:no-option>
                       <q-item>
                         <q-item-section class="text-grey">
-                          No se encontró la centro
+                          No se encontró el centro
                         </q-item-section>
                       </q-item>
                     </template>
@@ -140,19 +140,19 @@
                       hint="¡Cuéntanos por qué es asombroso este animalito!"
                     />
 
-                    <p>Rango de edad</p>
-                    <q-range
-                      class="q-pb-lg"
-                      v-model="pageContext.rango_edad"
-                      :min="0"
-                      :max="14"
-                      label-always
-                      color="accent"
-                      :marker-labels="{
-                        0: '0',
-                        14: '14+',
-                      }"
-                    />
+                    <p>Fecha de nacimiento (Aproximada)</p>
+
+
+                    <q-date
+                    v-model="formData.fecha_nacimiento"
+                    landscape
+                    mask="YYYY-MM-DD"
+                    class="center"
+                    label="Fecha de nacimiento"
+                    :rules="[(val) => !!val || 'Fecha de nacimiento requerida']"
+                    :navigation-max-year-month="MaxDate"
+                    :default-year-month="MaxDate"
+                  />
                     <q-space />
                     <mty-form-field-select
                       for="categoria"
@@ -628,7 +628,7 @@ export default defineComponent({
           'Estamos enviando la información. Espere un momento por favor...',
       })
       apiEmpleo
-        .post('/animales/animal/', NativeformData, {
+        .post('/animales/padron/', NativeformData, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
             'Content-Type': pageContext.photo_file
@@ -640,7 +640,7 @@ export default defineComponent({
           if (response.status === 201) {
             responseStatus.value = true
             responseMessage.value = 'Respuesta enviada exitosamente!'
-            router.push('/animales/publicados')
+            router.push('/animales')
           } else {
             responseMessage.value = responseMessage.value + response.status
           }
@@ -712,8 +712,6 @@ export default defineComponent({
         pageContext.foto = null
       }
     }
-
-
 
     return {
       step,

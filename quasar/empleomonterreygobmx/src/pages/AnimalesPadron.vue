@@ -5,7 +5,7 @@
   >
     <div class="col-12" v-bind:class="$q.screen.lt.sm ? 'q-py-md' : 'q-pa-xl'">
       <div class="">
-        <p style="font-size: 30px">Mis animales en adopción</p>
+        <p style="font-size: 30px">Animales</p>
       </div>
 
       <div class="row justify-end q-my-md">
@@ -15,8 +15,8 @@
           unelevated
           no-caps
           :disable="loading"
-          label="Publicar animal en adopción"
-          to="/animales/publicar/"
+          label="Registrar animal"
+          to="/animales/registrar/"
         />
       </div>
 
@@ -24,7 +24,7 @@
 
       <div v-if="pageContext.emptyPet == true" style="height:50vh;" class="flex full-width justify-center items-center">
         <div>
-          <p>Aún no has publicado animales en adopción.</p>
+          <p>Aún no has registrado animales.</p>
         </div>
       </div>
 

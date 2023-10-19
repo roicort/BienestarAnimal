@@ -17,10 +17,8 @@ class PerfilGeneralViewSet(viewsets.ModelViewSet):
         if self.request.user.is_staff:
             return PerfilGeneral.objects.all()
         elif self.request.user.is_authenticated:
-            asociaciones_vinculadas = list(VinculacionAsociacion.objects.filter(
-                user=self.request.user).values_list('asociacion', flat=True))
-            usuarios_postulaciones_asociaciones_vinculadas = list(PostulacionAdopcion.objects.filter(
-                animal__asociacion__in=asociaciones_vinculadas).values_list('user', flat=True))
+            asociaciones_vinculadas = list(VinculacionAsociacion.objects.filter(user=self.request.user).values_list('asociacion', flat=True))
+            usuarios_postulaciones_asociaciones_vinculadas = list(PostulacionAdopcion.objects.filter(animal__asociacion__in=asociaciones_vinculadas).values_list('user', flat=True))
             return PerfilGeneral.objects.filter(Q(user=self.request.user) | Q(user__in=usuarios_postulaciones_asociaciones_vinculadas))
         else:
             raise exceptions.PermissionDenied('Forbidden')

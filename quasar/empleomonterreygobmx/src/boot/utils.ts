@@ -8,9 +8,23 @@ import {firebaseAuth} from 'boot/firebase'
 
 // Vacantes --------------------------------------------------------------
 
-async function getVacantes() {
+async function getPadron() {
 
-  const response = await apiEmpleo.get('/animales/animal/?fields=id,nombre,descripcion,fecha_publicacion_inicio,fecha_publicacion_fin,asociacion_info,categoria_info,geom,foto,animal_favorito')
+  const response = await apiEmpleo.get('/animales/padron/')
+
+  response.data.forEach(function (obj: any) {
+    obj.label = obj.nombre
+    delete obj.nombre
+    obj.value = obj.id
+  })
+
+  return response.data;
+
+}
+
+async function getAdopciones() {
+
+  const response = await apiEmpleo.get('/animales/adopciones/')
 
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
@@ -29,7 +43,36 @@ async function getMisVacantes(accessToken: string, vinculaciones: any) {
   let response = {data: []}
 
   if (asociaciones && asociaciones.length > 0) {
-    let petition  = '/animales/animal/?'
+    let petition  = '/animales/padron/?'
+    asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
+    petition = petition.slice(0, -1)
+    response = await apiEmpleo.get(petition,
+      {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+      }
+    }
+    )
+  }
+
+  response.data.forEach(function (obj: any) {
+    obj.label = obj.nombre
+    delete obj.nombre
+    obj.value = obj.id
+  })
+
+  return response.data;
+
+}
+
+async function getEnAdopcion(accessToken: string, vinculaciones: any) {
+
+  const asociaciones: any = []
+  vinculaciones.forEach(function (obj: any) {  asociaciones.push(obj.asociacion) })
+  let response = {data: []}
+
+  if (asociaciones && asociaciones.length > 0) {
+    let petition  = '/animales/adopciones/?'
     asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
     petition = petition.slice(0, -1)
     response = await apiEmpleo.get(petition,
@@ -125,9 +168,9 @@ async function getInclusiones() {
   return response.data
 }
 
-async function getDetalleVacante(accessToken: string, vacante_id: number) {
+async function getDetalleAnimal(accessToken: string, animal_id: number) {
   if (accessToken) {
-    const response = await apiEmpleo.get(`/animales/animal/${vacante_id}/`,
+    const response = await apiEmpleo.get(`/animales/padron/${animal_id}/`,
       {
         headers: {
           'Authorization': 'Bearer ' + accessToken,
@@ -136,7 +179,7 @@ async function getDetalleVacante(accessToken: string, vacante_id: number) {
     )
     return response.data
   } else {
-    const response = await apiEmpleo.get(`/animales/animal/${vacante_id}/`)
+    const response = await apiEmpleo.get(`/animales/padron/${animal_id}/`)
     return response.data
   }
 }
@@ -351,13 +394,15 @@ export {
   getSubsectorSCIAN,
   getClaseSCIAN,
   getVinculaciones,
-  getVacantes,
+  getPadron,
   getDetalleSucursal,
   getFavoritos,
   getPostulados,
-  getDetalleVacante,
+  getDetalleAnimal,
   loginOIDC,
   getPerfil,
   getMisPostulaciones,
   getGeneros,
+  getEnAdopcion,
+  getAdopciones
 }

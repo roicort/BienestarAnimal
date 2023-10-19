@@ -37,6 +37,9 @@ class Asociacion(AsociacionBaseAbstract):
     Asociacion model
     """
 
+    def __str__(self):
+        return f"{self.nombre}"
+
     def save(self, *args, **kwargs):
         request = get_current_request()
         if request and request.user and request.user.is_authenticated:
@@ -53,7 +56,7 @@ class Asociacion(AsociacionBaseAbstract):
 
     class Meta:
         verbose_name = "Asociacion"
-        verbose_name_plural = "Asociacions"
+        verbose_name_plural = "Asociaciones"
         ordering = ['nombre']
 
 
@@ -104,7 +107,7 @@ class Centro(models.Model):
 
     class Meta:
         verbose_name = "Centro"
-        verbose_name_plural = "Centroes"
+        verbose_name_plural = "Centros"
         ordering = ['nombre']
 
 
@@ -114,10 +117,7 @@ class VinculacionAsociacion(models.Model):
     """
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_rol = models.CharField(max_length=30, default='reclutador',
-                                choices=(('', 'Rol de usuario'), ('coordinador', 'Coordinador'),
-                                         ('supervisor', 'Supervisor'), ('reclutador', 'Reclutador')))
-    esta_verificada = models.BooleanField(default=False)
+    user_rol = models.CharField(max_length=30, default='reclutador', choices=(('', 'Rol de usuario'), ('coordinador', 'Coordinador'),('empleado', 'Empleado')))
 
     def __str__(self):
         return f"{self.asociacion} ({self.user} - {self.user_rol})"
@@ -168,6 +168,6 @@ class VinculacionAsociacion(models.Model):
 
     class Meta:
         verbose_name = "Vinculación a asociacion"
-        verbose_name_plural = "Vinculaciones a asociacions"
+        verbose_name_plural = "Vinculaciones a asociaciones"
         ordering = ['id']
         unique_together = ('asociacion', 'user')

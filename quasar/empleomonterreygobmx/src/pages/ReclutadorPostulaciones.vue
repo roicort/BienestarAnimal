@@ -156,7 +156,7 @@ export default defineComponent({
       siteContext.drawerRight = false
       setTimeout(() => {
         getPostulados(authStore.firebaseUserData.accessToken).then(
-          (vacantes) => {
+          (solicitudes) => {
             pageContext.columns = [
               {
                 name: 'value',
@@ -207,20 +207,8 @@ export default defineComponent({
           })
           */
 
-            vacantes.forEach((obj) => {
-              /*
-            for (let key in obj) {
-              if (!fields.includes(key)) {
-                delete obj[key]
-              }
-              if (obj[key] === 'null') {
-                obj[key] = ''
-              }
-            }*/
-              obj.vacante_nombre = obj.vacante_info.nombre
-              obj.estatus_aceptacion_postulacion_text =  obj.estatus_aceptacion_postulacion == null ? 'Pendiente de evaluación' : obj.estatus_aceptacion_postulacion == true ? 'Aceptado' : 'Rechazado'
-              obj.fecha_evaluacion_postulacion = obj.fecha_evaluacion_postulacion == null ? 'Pendiente de evaluación' : obj.fecha_evaluacion_postulacion
-              obj.empresa = obj.vacante_info.empresa_info.nombre_comercial
+          solicitudes.forEach((obj) => {
+              console.log(obj)
               pageContext.rows.push(obj)
             })
             if (pageContext.rows == 0) {

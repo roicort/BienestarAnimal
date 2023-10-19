@@ -348,16 +348,6 @@ export default defineComponent({
           */
             authStore.perfilUsuario.aceptaciones = 0
             animales.forEach((obj) => {
-              /*
-            for (let key in obj) {
-              if (!fields.includes(key)) {
-                delete obj[key]
-              }
-              if (obj[key] === 'null') {
-                obj[key] = ''
-              }
-            }*/
-
               if (obj.centro_info) { obj.centro_info = obj.centro_info[0] }
               if (obj.centro_info && obj.centro_info.geom) {
                 let s = obj.centro_info.geom.split(';')[1]
@@ -365,7 +355,7 @@ export default defineComponent({
                 obj.projection = obj.centro_info.geom.split(';')[0]
               }
               obj.animal_nombre = obj.animal_info.nombre
-              obj.asociacion = obj.animal_info.asociacion_info.nombre
+              //obj.asociacion = obj.animal_info.asociacion_info.nombre
               obj.fecha_evaluacion_postulacion =
                 obj.fecha_evaluacion_postulacion == null
                   ? 'Pendiente de evaluación'
@@ -376,7 +366,6 @@ export default defineComponent({
               obj.estatus_aceptacion_postulacion_texto = obj.estatus_aceptacion_postulacion ? (obj.estaus_aceptacion_postulacion == true ? 'Aceptado' : 'No cubre el perfil') : 'Pendiente'
               rows.value.push(obj)
             })
-            console.log(rows.value)
           }
         )
       }, 1000)

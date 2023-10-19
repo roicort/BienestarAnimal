@@ -9,7 +9,6 @@ from threadlocals.threadlocals import get_current_request
 
 # Create your models here.
 
-
 def fecha_publicacion_fin():
     return (timezone.now() + timezone.timedelta(days=60)).date()
 
@@ -43,16 +42,14 @@ class Animal(models.Model):
     descripcion = models.TextField()
     sexo = models.CharField(max_length=32, choices=(
         ('macho', 'Macho'), ('hembra', 'Hembra')))
-    edad = models.CharField(max_length=32, null=True, blank=True, verbose_name="Edad aproximada")
+    fecha_nacimiento = models.DateField(null=True, blank=True)
     habilidades = models.ManyToManyField(Habilidad, blank=True)
     apto_niños = models.BooleanField(default=False)
     inclusiones = models.ManyToManyField(AnimalInclusion, blank=True)
-    fecha_publicacion_inicio = models.DateField(auto_now_add=True, editable=False)
-    fecha_publicacion_fin = models.DateField(default=fecha_publicacion_fin, editable=False)
-    asociacion = models.ForeignKey(Asociacion, on_delete=models.PROTECT)
-    centro = models.ForeignKey(Centro, on_delete=models.PROTECT)
     foto = models.ImageField(max_length=255, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
+    centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.nombre}"
@@ -75,14 +72,42 @@ class Animal(models.Model):
             raise ProtectedError("No tiene permisos para modificar este animal", self)
 
     class Meta:
-        ordering = ['fecha_publicacion_inicio']
+        ordering = ['nombre']
         verbose_name = "Animal"
         verbose_name_plural = "Animales"
 
+class Adopcion(models.Model):
+
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
+    centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
+    fecha_publicacion_inicio = models.DateField(auto_now_add=True)
+    fecha_publicacion_fin = models.DateField(default=fecha_publicacion_fin)
+    fecha_adopcion = models.DateField(null=True, editable=False)
+    estatus_adopcion = models.BooleanField(null=True, default=None)  # None = pendiente, True = adoptado, False = no adoptado
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    adoptante = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='adoptante')  
+
+    def __str__(self):
+        return f"{self.animal} ({self.asociacion})"
+
+    def save(self, *args, **kwargs):
+        self_obj = self
+        if self.estatus_adopcion is True:
+            self.fecha_adopcion = timezone.now().date()
+            self.adoptante = self_obj.adoptante
+        super(Adopcion, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Adopcion"
+        verbose_name_plural = "Adopciones"
+        unique_together = ('animal', 'asociacion')
 
 class PostulacionAdopcion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+
+    motivos = models.TextField(null=True, blank=True)
     
     fecha_postulacion = models.DateField(auto_now_add=True)
     estatus_aceptacion_postulacion = models.BooleanField(null=True,
@@ -122,6 +147,36 @@ class PostulacionAdopcion(models.Model):
     class Meta:
         verbose_name = "Postulación a adopcion"
         verbose_name_plural = "Postulaciones a adopciones"
+        unique_together = ('user', 'animal')
+
+class ReportePerdido(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    
+    fecha_reporte = models.DateField(auto_now_add=True)
+    estatus = models.BooleanField(null=True, default=None)  # None = pendiente, True = aceptada, False = rechazada
+    fecha_encontrado = models.DateField(null=True, editable=False)
+
+    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE, null=True, blank=True)
+    centro = models.ForeignKey(Centro, on_delete=models.CASCADE, null=True, blank=True)
+
+    llamar_a = models.CharField(max_length=140, null=True, blank=True)
+
+    descripcion_hechos = models.TextField(null=True, blank=True)
+
+    geom = models.PointField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user} ({self.animal})"
+
+    def save(self, *args, **kwargs):
+        if self.estatus is True:
+            self.fecha_encontrado = timezone.now().date()
+        super(ReportePerdido, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Reporte animal perdido"
+        verbose_name_plural = "Reportes animales perdidos"
         unique_together = ('user', 'animal')
 
 

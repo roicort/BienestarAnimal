@@ -4,14 +4,14 @@
     <q-card class="my-card q-ml-lg q-mr-lg q-mb-xl" flat bordered>
 
       <q-card-section horizontal>
-        <q-img :src="mascota.foto" :ratio="1 / 1" />
+        <q-img :src="mascota.animal_info.foto" :ratio="1 / 1" />
       </q-card-section>
 
       <q-card-section>
-        <div class="text-overline text-orange-9">{{ mascota.categoria_info.nombre }}</div>
-        <div class="text-h5 q-mt-sm q-mb-xs">{{ mascota.label }}</div>
+        <div class="text-overline text-orange-9">{{ mascota.animal_info.categoria_info }}</div>
+        <div class="text-h5 q-mt-sm q-mb-xs">{{ mascota.animal_info.nombre }}</div>
         <div class="text-caption text-grey">
-          {{ mascota.descripcion }}
+          {{ mascota.animal_info.descripcion }}
         </div>
 
         <q-item-section side top class="self-start text-right">
@@ -47,7 +47,7 @@
         <q-avatar rounded size="20px">
           <q-img v-if="mascota.asociacion_info.logo" :src="mascota.asociacion_info.logo" fit="contain" />
           <span v-else class="text-white text-weight-regular">
-            {{ mascota.nombre.slice(0, 1) }}
+            {{ mascota.animal_info.nombre.slice(0, 1) }}
           </span>
         </q-avatar>
         <div v-if="mascota.label" class="text-caption text-grey">
@@ -71,7 +71,7 @@ import { reactive } from 'vue'
 
 import { useSiteContextStore } from 'stores/site-context'
 import { useRouter } from 'vue-router'
-import { getDetalleVacante } from 'boot/utils'
+import { getDetalleAnimal } from 'boot/utils'
 
 import { useAuthStore } from 'stores/auth'
 const authStore = useAuthStore()
@@ -88,6 +88,8 @@ const componentContext = reactive({
   animales: props.animales
 });
 
+console.log('componentContext.animales', componentContext.animales)
+
 const diasdesdepublicacion = (fecha_publicacion_inicio: any) => {
   return Math.floor(
     (Date.now() - new Date(fecha_publicacion_inicio)) /
@@ -101,8 +103,9 @@ const diasdesdepublicacion = (fecha_publicacion_inicio: any) => {
 const setSelectedJob = (job) => {
   siteContext.drawerRight = true
   siteContext.loading_job = true
-  getDetalleVacante(authStore.firebaseUserData.accessToken, job.id).then(
+  getDetalleAnimal(authStore.firebaseUserData.accessToken, job.animal).then(
     (response) => {
+      console.log(response)
       siteContext.animal_seleccionado = response
       siteContext.loading_job = false
     }
@@ -117,7 +120,7 @@ const setSelectedPath = (job: any) => {
   if (currentRoute.includes('favoritos')) {
     setSelectedJob(job)
   } else {
-    const newPath = `/animales/${job.id}/`;
+    const newPath = `/adopcion/${job.id}/`;
     router.push({ path: newPath });
   }
 }

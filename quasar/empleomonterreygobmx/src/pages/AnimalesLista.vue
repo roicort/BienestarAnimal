@@ -134,7 +134,7 @@ import { defineComponent, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import {
-  getVacantes,
+  getAdopciones,
   getCategorias,
   getInclusiones,
 } from '../boot/utils'
@@ -203,7 +203,7 @@ export default defineComponent({
       pageContext.search = null
       pageContext.searching = false
 
-      await getVacantes(authStore.firebaseUserData.accessToken).then(
+      await getAdopciones(authStore.firebaseUserData.accessToken).then(
         (response) => {
           siteContext.animales_filtrados = []
           siteContext.animales_filtrados = response

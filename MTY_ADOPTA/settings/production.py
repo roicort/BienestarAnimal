@@ -1,12 +1,22 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = "django-insecure-!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "0.0.0.0",
+    "empleo.monterrey.gob.mx"
+    ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'BTS API',
+    'DESCRIPTION': 'Bolsa de Empleo de Monterrey',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 STORAGES = {
     "default": {

@@ -203,9 +203,9 @@
         " class="box-shadow-soft q-mr-md">
         <q-img v-if="siteContext.animal_seleccionado.asociacion_info.logo"
           :src="siteContext.animal_seleccionado.asociacion_info.logo"
-          :alt="siteContext.animal_seleccionado.asociacion_info.nombre_comercial" fit="contain" />
+          :alt="siteContext.animal_seleccionado.asociacion_info.nombre" fit="contain" />
         <span v-else class="text-white text-weight-regular">{{
-          siteContext.animal_seleccionado.asociacion_info.nombre_comercial.slice(0, 1)
+          siteContext.animal_seleccionado.asociacion_info.nombre.slice(0, 1)
         }}</span>
       </q-avatar>
     </div>
@@ -313,9 +313,9 @@
               " class="box-shadow-soft q-mr-md">
             <q-img v-if="siteContext.animal_seleccionado.asociacion_info.logo"
               :src="siteContext.animal_seleccionado.asociacion_info.logo"
-              :alt="siteContext.animal_seleccionado.asociacion_info.nombre_comercial" fit="contain" />
+              :alt="siteContext.animal_seleccionado.asociacion_info.nombre" fit="contain" />
             <span v-else class="text-white text-weight-regular">{{
-              siteContext.animal_seleccionado.asociacion_info.nombre_comercial.slice(0, 1)
+              siteContext.animal_seleccionado.asociacion_info.nombre.slice(0, 1)
             }}</span>
           </q-avatar>
           <span class="self-center">{{ siteContext.animal_seleccionado.asociacion_info.razon_social }}</span>
@@ -584,7 +584,7 @@ const saveJob = () => {
 
 const deleteJob = () => {
   apiEmpleo
-    .delete(`/animal/animal-favorito/${favoritoId.value}/`, {
+    .delete(`/animales/animal-favorito/${favoritoId.value}/`, {
       headers: {
         Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
       },

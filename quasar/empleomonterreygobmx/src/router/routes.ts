@@ -8,19 +8,23 @@ const routes: RouteRecordRaw[] = [
     children: [
 
       {path: '', component: () => import('src/pages/AnimalesLista.vue')},
-      {path: 'animales/:id', component: () => import('src/pages/AnimalesLista.vue')},
-      {path: 'animales/favoritos', component: () => import('src/pages/AnimalesFavoritos.vue')},
-      {path: 'animales/favoritos/:id', component: () => import('src/pages/AnimalesFavoritos.vue')},
-      {path: 'animales/adopcion', component: () => import('src/pages/PostulacionAdopcion.vue')},
+      {path: 'adopcion/:id', component: () => import('src/pages/AnimalesLista.vue')},
+      {path: 'adopcion/favoritos', component: () => import('src/pages/AnimalesFavoritos.vue')},
+      {path: 'adopcion/favoritos/:id', component: () => import('src/pages/AnimalesFavoritos.vue')},
+      {path: 'adopcion/aplicaciones', component: () => import('src/pages/PostulacionAdopcion.vue')},
 
       {path: 'cuenta', component: () => import('src/pages/CuentaDetalle.vue')},
       {path: 'cuenta/perfil', component: () => import('src/pages/PerfilDetalle.vue')},
       {path: 'cuenta/perfil/editar', component: () => import('pages/EditarPerfil.vue')},
 
-      {path: 'animales/publicar', component: () => import('src/pages/PublicarAnimal.vue')},
+      {path: 'animales/registrar', component: () => import('src/pages/AnimalRegistrar.vue')},
       {path: 'animales/detalle/:id', component: () => import('src/pages/DetalleAnimal.vue')},
 
-      {path: 'animales/publicados', component: () => import('src/pages/AnimalesPublicados.vue')},
+      {path: 'animales/', component: () => import('src/pages/AnimalesPadron.vue')},
+      {path: 'animales/adopcion', component: () => import('src/pages/AnimalesAdopcion.vue')},
+      {path: 'animales/adopcion/crear', component: () => import('src/pages/AnimalesAdopcionCrear.vue')},
+      {path: 'animales/reportes', component: () => import('src/pages/AnimalesReportes.vue')},
+
 
       {path: 'asociaciones', component: () => import('src/pages/AsociacionesLista.vue')},
       {path: 'asociaciones/:id', component: () => import('src/pages/DetalleEmpresa.vue')},
