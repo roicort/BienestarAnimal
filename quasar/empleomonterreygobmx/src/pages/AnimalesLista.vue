@@ -1,6 +1,7 @@
 <template>
   <q-page>
-    <q-dialog v-model="pageContext.filterpop" persistent>
+
+    <q-dialog v-if="false" v-model="pageContext.filterpop" persistent>
       <q-card class="q-pa-lg" style="width: 700px; max-width: 80vw">
         <q-item-label header class="text-h6 q-pt-lg">Filtros</q-item-label>
 
@@ -72,7 +73,7 @@
     </div>
 
 
-    <q-slide-transition> 
+    <q-slide-transition v-if="false" > 
     <q-input class="q-ma-md" v-model="pageContext.search" dense debounce="1000" :borderless="!pageContext.activesearch" :rounded="pageContext.activesearch" :outlined="pageContext.activesearch" :loading="pageContext.searching" type="search"
       @update:model-value="filterData" @focus="pageContext.activesearch = true">
       <template v-slot:append v-if="!pageContext.searching">
