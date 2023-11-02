@@ -8,7 +8,6 @@ from base.serializers import HabilidadSerializer
 from users.models import User
 from rest_framework import routers
 
-
 class AnimalCategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnimalCategoria
@@ -39,7 +38,14 @@ class AnimalFavoritoSerializer(serializers.ModelSerializer):
 
 
 class AnimalMinSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
-    #asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
+    
+    categoria_nombre = serializers.SerializerMethodField('get_animal_category')
+
+    def get_animal_category(self, instance):
+        categoria = instance.categoria.id
+        animale_categoria = AnimalCategoria.objects.filter(id=categoria)
+        serializer = AnimalCategoriaSerializer(animale_categoria, many=True, context=self.context)
+        return serializer.data[0]['nombre']
 
     class Meta:
         model = Animal
@@ -118,6 +124,11 @@ class AdopcionSerializer(serializers.ModelSerializer):
 
     animal_info = AnimalMinSerializer(source='animal', read_only=True)
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
+    categoria = serializers.SerializerMethodField('get_animal_category')
+
+    def get_animal_category(self, instance):
+        categoria = instance.animal.categoria.id
+        return categoria
 
     class Meta:
         model = Adopcion
