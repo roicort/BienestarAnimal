@@ -94,6 +94,35 @@ async function getEnAdopcion(accessToken: string, vinculaciones: any) {
 
 }
 
+async function getPerdidos(accessToken: string, vinculaciones: any) {
+
+  const asociaciones: any = []
+  vinculaciones.forEach(function (obj: any) {  asociaciones.push(obj.asociacion) })
+  let response = {data: []}
+
+  if (asociaciones && asociaciones.length > 0) {
+    let petition  = '/animales/reportes/?'
+    asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
+    petition = petition.slice(0, -1)
+    response = await apiEmpleo.get(petition,
+      {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+      }
+    }
+    )
+  }
+
+  response.data.forEach(function (obj: any) {
+    obj.label = obj.nombre
+    delete obj.nombre
+    obj.value = obj.id
+  })
+
+  return response.data;
+
+}
+
 async function getFavoritos(accessToken: string) {
   const response = await apiEmpleo.get('/animales/animal-favorito/',
     {
@@ -404,5 +433,6 @@ export {
   getMisPostulaciones,
   getGeneros,
   getEnAdopcion,
-  getAdopciones
+  getAdopciones,
+  getPerdidos
 }

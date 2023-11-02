@@ -104,7 +104,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
 
-import { getMisVacantes } from 'boot/utils'
+import { getPerdidos } from 'boot/utils'
 
 import JobLoader from 'src/components/common/JobLoader.vue'
 
@@ -128,7 +128,7 @@ export default defineComponent({
 
     onMounted(() => {
       setTimeout(() => {
-        getMisVacantes(
+        getPerdidos(
           authStore.firebaseUserData.accessToken,
           authStore.perfilUsuario.vinculaciones_asociaciones
         ).then((vacantes) => {
@@ -143,30 +143,6 @@ export default defineComponent({
               field: 'id',
               sortable: true,
             },
-            {
-              name: 'nombre',
-              label: 'Animal',
-              field: 'label',
-              sortable: true,
-            },
-            {
-              name: 'label',
-              label: 'Nombre de asociacion animal',
-              field: 'nombre_empresa',
-              sortable: true,
-            },
-            {
-              name: 'inicio',
-              label: 'Inicio',
-              field: 'fecha_publicacion_inicio',
-              sortable: true,
-            },
-            {
-              name: 'fin',
-              label: 'Fin',
-              field: 'fecha_publicacion_fin',
-              sortable: true,
-            },
           ]
 
           /*
@@ -176,7 +152,6 @@ export default defineComponent({
           */
 
           vacantes.forEach((obj) => {
-            obj.nombre_empresa = obj.asociacion_info.nombre
             rows.value.push(obj)
           })
         })
@@ -196,7 +171,7 @@ export default defineComponent({
       rows,
       columns,
       onDetail,
-      getMisVacantes,
+      getPerdidos,
       pagination: {
         rowsPerPage: 0,
       },
