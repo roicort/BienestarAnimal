@@ -136,7 +136,7 @@ import { useQuasar } from 'quasar'
 
 import { useSiteContextStore } from 'stores/site-context'
 
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 
 import {
   getEstados,
@@ -245,7 +245,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .put(`/empresas/sucursal/${route.params.id}/`, formData.value, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

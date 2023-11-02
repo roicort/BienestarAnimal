@@ -138,7 +138,7 @@ import {
   getCategorias,
   getInclusiones,
 } from '../boot/utils'
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 
 import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
@@ -227,7 +227,7 @@ export default defineComponent({
         pageContext.inclusiones_seleccionadas = []
 
         let petition = '/animales/animal/?search=' + pageContext.search
-        apiEmpleo.get(petition+orden).then((response) => {
+        apiAdopta.get(petition+orden).then((response) => {
           siteContext.animales_filtrados = response.data
           pageContext.emptyFilter = siteContext.animales_filtrados.length === 0
           pageContext.searching = false
@@ -251,7 +251,7 @@ export default defineComponent({
             petition += '&inclusion=' + inc.value
           })
         }
-          apiEmpleo.get(petition+orden).then((response) => {
+          apiAdopta.get(petition+orden).then((response) => {
             pageContext.search = ''
             siteContext.animales_filtrados = response.data
             pageContext.emptyFilter = siteContext.animales_filtrados.length === 0
@@ -259,7 +259,7 @@ export default defineComponent({
 
       } else {
         console.log('case3')
-        apiEmpleo.get('animales/animal/?'+orden).then((response) => {
+        apiAdopta.get('animales/animal/?'+orden).then((response) => {
           siteContext.animales_filtrados = response.data
           pageContext.emptyFilter = siteContext.animales_filtrados.length === 0
         })

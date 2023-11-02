@@ -329,7 +329,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from 'stores/auth'
 import { useQuasar } from 'quasar'
 import { useSiteContextStore } from 'stores/site-context'
-import { apiEmpleo } from 'boot/axios'
+import { apiAdopta } from 'boot/axios'
 import MtyFormFieldInput from 'src/components/forms/fields/MtyFormFieldInput.vue'
 import MTYMapa from 'src/components/jobs/MTYMapa.vue'
 
@@ -379,7 +379,7 @@ export default defineComponent({
     }
     onBeforeMount(() => {
       setTimeout(() => {
-        apiEmpleo
+        apiAdopta
           .get(`/empresas/empresa/${empresaID}/`, {
             headers: {
               Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
@@ -461,7 +461,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .patch(`/empresas/empresa/${empresaID}/`, NativeformData, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

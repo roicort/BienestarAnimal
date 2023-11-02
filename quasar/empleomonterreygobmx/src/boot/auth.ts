@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import { firebaseAuth } from 'boot/firebase'
-import { apiEmpleo } from 'boot/axios'
+import { apiAdopta } from 'boot/axios'
 import { useAuthStore } from 'stores/auth'
 //import { getRedirectResult, OAuthProvider } from 'firebase/auth'
 
@@ -15,7 +15,7 @@ export default boot(async ({ router }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       authStore.firebaseUserData = user
-      await apiEmpleo
+      await apiAdopta
         .get(`/users/user/${user.uid}/`, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
@@ -24,7 +24,7 @@ export default boot(async ({ router }) => {
         .then((response) => {
           authStore.localUserData = response.data
         })
-      await apiEmpleo
+      await apiAdopta
         .get(`/perfiles/perfil-general/${authStore.firebaseUserData.uid}/`, {
           headers: {
             Authorization: `Bearer ${authStore.firebaseUserData.accessToken}`,

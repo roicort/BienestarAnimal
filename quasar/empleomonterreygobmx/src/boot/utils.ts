@@ -2,7 +2,7 @@
 /* Getters */
 /***********/
 
-import {apiEmpleo, apiIde, apiMty} from 'boot/axios'
+import {apiAdopta, apiIde, apiMty} from 'boot/axios'
 import {OAuthProvider, signInWithPopup} from 'firebase/auth'
 import {firebaseAuth} from 'boot/firebase'
 
@@ -10,7 +10,7 @@ import {firebaseAuth} from 'boot/firebase'
 
 async function getPadron() {
 
-  const response = await apiEmpleo.get('/animales/padron/')
+  const response = await apiAdopta.get('/animales/padron/')
 
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
@@ -24,7 +24,7 @@ async function getPadron() {
 
 async function getAdopciones() {
 
-  const response = await apiEmpleo.get('/animales/adopciones/')
+  const response = await apiAdopta.get('/animales/adopciones/')
 
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
@@ -46,7 +46,7 @@ async function getMisVacantes(accessToken: string, vinculaciones: any) {
     let petition  = '/animales/padron/?'
     asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
     petition = petition.slice(0, -1)
-    response = await apiEmpleo.get(petition,
+    response = await apiAdopta.get(petition,
       {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -75,7 +75,7 @@ async function getEnAdopcion(accessToken: string, vinculaciones: any) {
     let petition  = '/animales/adopciones/?'
     asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
     petition = petition.slice(0, -1)
-    response = await apiEmpleo.get(petition,
+    response = await apiAdopta.get(petition,
       {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -104,7 +104,7 @@ async function getPerdidos(accessToken: string, vinculaciones: any) {
     let petition  = '/animales/reportes/?'
     asociaciones.forEach(function (obj: any) { petition += 'asociacion=' + obj + '&' })
     petition = petition.slice(0, -1)
-    response = await apiEmpleo.get(petition,
+    response = await apiAdopta.get(petition,
       {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -124,7 +124,7 @@ async function getPerdidos(accessToken: string, vinculaciones: any) {
 }
 
 async function getFavoritos(accessToken: string) {
-  const response = await apiEmpleo.get('/animales/animal-favorito/',
+  const response = await apiAdopta.get('/animales/animal-favorito/',
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -135,7 +135,7 @@ async function getFavoritos(accessToken: string) {
 }
 
 async function getPostulados(accessToken: string) {
-  const response = await apiEmpleo.get('/animales/postulacion-adopcion/',
+  const response = await apiAdopta.get('/animales/postulacion-adopcion/',
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -150,7 +150,7 @@ async function getPostulados(accessToken: string) {
 }
 
 async function getMisPostulaciones(accessToken: string) {
-  const response = await apiEmpleo.get('/animales/mis-postulaciones/',
+  const response = await apiAdopta.get('/animales/mis-postulaciones/',
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -165,7 +165,7 @@ async function getMisPostulaciones(accessToken: string) {
 }
 
 async function getHabilidades() {
-  const response = await apiEmpleo.get('base/habilidad/')
+  const response = await apiAdopta.get('base/habilidad/')
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
     delete obj.nombre
@@ -176,7 +176,7 @@ async function getHabilidades() {
 }
 
 async function getCategorias() {
-  const response = await apiEmpleo.get('/animales/animal-categoria/')
+  const response = await apiAdopta.get('/animales/animal-categoria/')
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
     delete obj.nombre
@@ -187,7 +187,7 @@ async function getCategorias() {
 }
 
 async function getInclusiones() {
-  const response = await apiEmpleo.get('/animales/animal-inclusion/')
+  const response = await apiAdopta.get('/animales/animal-inclusion/')
   response.data.forEach(function (obj: any) {
     obj.label = obj.nombre
     delete obj.nombre
@@ -199,7 +199,7 @@ async function getInclusiones() {
 
 async function getDetalleAnimal(accessToken: string, animal_id: number) {
   if (accessToken) {
-    const response = await apiEmpleo.get(`/animales/padron/${animal_id}/`,
+    const response = await apiAdopta.get(`/animales/padron/${animal_id}/`,
       {
         headers: {
           'Authorization': 'Bearer ' + accessToken,
@@ -208,13 +208,13 @@ async function getDetalleAnimal(accessToken: string, animal_id: number) {
     )
     return response.data
   } else {
-    const response = await apiEmpleo.get(`/animales/padron/${animal_id}/`)
+    const response = await apiAdopta.get(`/animales/padron/${animal_id}/`)
     return response.data
   }
 }
 
 /*async function getDetalleEmpresa(accessToken: string, asociacion_id: number) {
-  const response = await apiEmpleo.get(`/asociaciones/asociacion/${asociacion_id}/`,
+  const response = await apiAdopta.get(`/asociaciones/asociacion/${asociacion_id}/`,
   {
     headers: {
       'Authorization': 'Bearer ' + accessToken,
@@ -252,8 +252,8 @@ async function getClaseSCIAN() {
 
 // Empresas --------------------------------------------------------------
 
-async function getEmpresas(accessToken: string, asociacion_id: number) {
-  const response = await apiEmpleo.get(`/asociaciones/asociacion/${asociacion_id ? asociacion_id : ''}`,
+async function getAsociaciones(accessToken: string, asociacion_id: number) {
+  const response = await apiAdopta.get(`/asociaciones/asociacion/${asociacion_id ? asociacion_id : ''}`,
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -270,7 +270,7 @@ async function getEmpresas(accessToken: string, asociacion_id: number) {
 }
 
 async function getSucursales(accessToken: string, asociacion_id: number) {
-  const response = await apiEmpleo.get(`/asociaciones/centro/${asociacion_id ? '?asociacion=' + asociacion_id : ''}`,
+  const response = await apiAdopta.get(`/asociaciones/centro/${asociacion_id ? '?asociacion=' + asociacion_id : ''}`,
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -294,7 +294,7 @@ async function getSucursales(accessToken: string, asociacion_id: number) {
 }
 
 async function getVinculaciones(accessToken: string, asociacion_id: number) {
-  const response = await apiEmpleo.get(`/asociaciones/vinculacion-asociacion/${asociacion_id ? '?asociacion=' + asociacion_id : ''}`,
+  const response = await apiAdopta.get(`/asociaciones/vinculacion-asociacion/${asociacion_id ? '?asociacion=' + asociacion_id : ''}`,
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -312,7 +312,7 @@ async function getVinculaciones(accessToken: string, asociacion_id: number) {
 }
 
 async function getDetalleSucursal(accessToken: string, sucursal_id: number) {
-  const response = await apiEmpleo.get(`/asociaciones/sucursal/${sucursal_id}/`,
+  const response = await apiAdopta.get(`/asociaciones/sucursal/${sucursal_id}/`,
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -387,7 +387,7 @@ const loginOIDC = ($q: any) => {
 // Perfil --------------------------------------------------------------
 
 async function getPerfil(accessToken: string, user_id: string) {
-  const response = await apiEmpleo.get(`/perfiles/perfil-general/${user_id}/`,
+  const response = await apiAdopta.get(`/perfiles/perfil-general/${user_id}/`,
     {
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -411,7 +411,7 @@ async function getGeneros() {
 // -----------------------------------------------------------------
 
 export {
-  getEmpresas,
+  getAsociaciones,
   getMisVacantes,
   getSucursales,
   getEstados,

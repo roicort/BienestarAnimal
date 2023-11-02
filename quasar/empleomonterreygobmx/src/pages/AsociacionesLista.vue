@@ -109,7 +109,7 @@ import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from 'stores/auth'
 import JobLoader from 'src/components/common/JobLoader.vue'
-import { getEmpresas } from 'boot/utils'
+import { getAsociaciones } from 'boot/utils'
 
 const authStore = useAuthStore()
 export default defineComponent({
@@ -163,7 +163,7 @@ export default defineComponent({
     onMounted(() => {
       setTimeout(() => {
         if (authStore.localUserData.is_staff) {
-          getEmpresas(authStore.firebaseUserData.accessToken).then(
+          getAsociaciones(authStore.firebaseUserData.accessToken).then(
             (companies) => {
               companies.forEach((obj) => {
                 pageContext.rows.push(obj)

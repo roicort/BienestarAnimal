@@ -28,10 +28,10 @@
                 >
 
                 <mty-form-field-input
-                  :for="formData.nombre"
-                  label="Nombre(s)"
+                  :for="formData.nombres"
+                  label="nombres(s)"
                   required
-                  v-model="formData.nombre"
+                  v-model="formData.nombres"
                 />
 
                 <mty-form-field-input
@@ -88,6 +88,17 @@
                 <q-select
                   dense
                   outlined
+                  label="Situación Familiar"
+                  v-model="formData.situacion_familiar"
+                  map-options
+                  :options="pageContext.situacionOptions"
+                  use-input
+                  :rules="[(val) => !!val || 'Campo requerido']"
+                />
+
+                <q-select
+                  dense
+                  outlined
                   label="Municipio"
                   v-model="formData.ciudad"
                   map-options
@@ -95,6 +106,13 @@
                   @filter="filterMunicipioOptions"
                   use-input
                   :rules="[(val) => !!val || 'Campo requerido']"
+                />
+
+                <mty-form-field-input
+                  :for="formData.domicilio"
+                  label="Domicilio"
+                  required
+                  v-model="formData.domicilio"
                 />
 
                 <q-item-label class="q-pt-sm q-pb-sm text-h6 text-grey-9"
@@ -164,7 +182,7 @@ import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
 
 import { useAuthStore } from '../stores/auth'
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 import { getEstados, getGeneros, getMunicipios } from '../boot/utils'
 import MtyFormFieldInput from 'src/components/forms/fields/MtyFormFieldInput.vue'
 
@@ -202,7 +220,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       setTimeout(() => {
-        apiEmpleo.get('/base/habilidad/').then((response) => {
+        apiAdopta.get('/base/habilidad/').then((response) => {
           response.data.forEach(function (obj) {
             obj.label = obj.nombre
             delete obj.nombre
@@ -226,7 +244,7 @@ export default defineComponent({
     })
 
     const agregarNuevaHabilidad = (event) => {
-      apiEmpleo
+      apiAdopta
         .post(
           '/base/habilidad/',
           { nombre: event },
@@ -269,23 +287,10 @@ export default defineComponent({
     }
 
     const submitFormulario = () => {
+
       formData.value.user = authStore.firebaseUserData.uid
       formData.value.estado = formData.value.estado.label
       formData.value.ciudad = formData.value.ciudad.label
-
-      if (formData.value.habilidades.length > 0) {
-        let habilidadesID = []
-        formData.value.habilidades.forEach((item) => {
-          typeof item === 'number'
-            ? habilidadesID.push(item)
-            : typeof item === 'object'
-            ? item.value
-              ? habilidadesID.push(item.value)
-              : false
-            : false
-        })
-        formData.value.habilidades = habilidadesID
-      }
 
       $q.loading.show({
         message:
@@ -294,7 +299,7 @@ export default defineComponent({
       if (formData.value.genero){
         formData.value.genero = formData.value.genero.label
       }
-      apiEmpleo
+      apiAdopta
         .put(
           `/perfiles/perfil-general/${authStore.firebaseUserData.uid}/`,
           formData.value,

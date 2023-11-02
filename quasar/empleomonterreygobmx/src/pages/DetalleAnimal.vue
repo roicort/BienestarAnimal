@@ -383,7 +383,7 @@ import { useQuasar } from 'quasar'
 
 import { useSiteContextStore } from 'stores/site-context'
 
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 import MTYMapa from 'src/components/jobs/MTYMapa.vue'
 
 import {
@@ -495,7 +495,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .put(`/empleos/vacante/${vacanteID}/`, formData.value, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

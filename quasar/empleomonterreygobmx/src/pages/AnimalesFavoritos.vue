@@ -8,7 +8,7 @@
         <div class="q-mx-auto" :style="$q.screen.lt.sm  ? 'max-width: 40%' : 'max-width: 20%'">
             <img
               src="https://mty-microwebapps.web.app/img/sdh/mty_sdh_logo_iso.svg"
-              alt="Bolsa de empleo - Gobierno de Monterrey"
+              alt="Adopta Monterrey - Gobierno de Monterrey"
             />
         </div>
         <div class="flex full-width justify-center items-center q-pt-xl">
@@ -51,7 +51,7 @@ import { date } from 'quasar'
 import JobLoader from 'src/components/common/JobLoader.vue'
 
 export default defineComponent({
-  name: 'EmpleosLista',
+  name: 'AdopcionesLista',
   components: { JobLoader, ListaRenderer},
   setup() {
 

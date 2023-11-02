@@ -127,7 +127,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
-import {apiEmpleo} from 'boot/axios'
+import {apiAdopta} from 'boot/axios'
 
 import { getPostulados, getPerfil } from 'boot/utils'
 import JobLoader from 'src/components/common/JobLoader.vue'
@@ -241,7 +241,7 @@ export default defineComponent({
             class: 'no-caps'
           },
         }).onOk(() => {
-          apiEmpleo
+          apiAdopta
             .patch('/empleos/postulacion-vacante/' + props.row.value + '/', { 'estatus_aceptacion_postulacion': estado },
                 { headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authStore.firebaseUserData.accessToken }, }
             ).then((response) => {

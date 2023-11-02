@@ -30,7 +30,7 @@ apiIDEURL = 'https://ide.api.monterrey.gob.mx/rest/v1'  // Catálogos de IDE
 apiMTYURL = 'https://api.monterrey.gob.mx/rest/v1'     // Catálogos de MTY
 
 const apiController = new AbortController();
-const apiEmpleo = axios.create({ baseURL: baseAPIURL });
+const apiAdopta = axios.create({ baseURL: baseAPIURL });
 const apiAuth = axios.create({ baseURL: apiAuthURL });
 const apiCms = axios.create({ baseURL: apiCMSURL });
 const apiIde = axios.create({ baseURL: apiIDEURL });
@@ -45,9 +45,9 @@ export default boot(({ app }) => {
   // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
   //       so you won't necessarily have to import axios in each vue file
 
-  app.config.globalProperties.$api = apiEmpleo;
+  app.config.globalProperties.$api = apiAdopta;
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 })
 
-export { apiEmpleo, apiAuth, apiCms, apiIde, apiMty, axios, apiController, baseAPIURL }
+export { apiAdopta, apiAuth, apiCms, apiIde, apiMty, axios, apiController, baseAPIURL }

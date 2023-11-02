@@ -214,10 +214,10 @@ import { useQuasar } from 'quasar'
 
 import { useSiteContextStore } from 'stores/site-context'
 
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 
 import {
-  getEmpresas,
+  getAsociaciones,
   getSucursales,
   getHabilidades,
   getCategorias,
@@ -264,7 +264,7 @@ export default defineComponent({
     onBeforeMount(() => {
       setTimeout(() => {
         if (authStore.localUserData.is_staff) {
-          getEmpresas(authStore.firebaseUserData.accessToken).then(
+          getAsociaciones(authStore.firebaseUserData.accessToken).then(
             (companies) => {
               companies.forEach((obj) => {
                 pageContext.opcionesAsociaciones.push(obj)
@@ -322,7 +322,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .post('/animales/adopciones/', formData.value, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
@@ -340,7 +340,7 @@ export default defineComponent({
           $q.loading.hide()
           showNotificacion(
             response.status === 201
-              ? 'Empleo publicado exitosamente'
+              ? 'Adopción publicada exitosamente'
               : 'Ocurrió un error: ' + response.status,
             response.status === 201 ? 'green' : 'orange'
           )

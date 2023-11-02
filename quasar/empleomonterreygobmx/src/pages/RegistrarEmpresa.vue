@@ -350,7 +350,7 @@ import { useQuasar } from 'quasar'
 import MtyFormFieldInput from 'src/components/forms/fields/MtyFormFieldInput.vue'
 //import MtyFormFieldSelect from 'src/components/forms/fields/MtyFormFieldSelect.vue'
 import { useSiteContextStore } from 'stores/site-context'
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 import { getEstados, getMunicipios, getSubsectorSCIAN } from '../boot/utils'
 export default defineComponent({
   name: 'RegistrarEmpresa',
@@ -447,7 +447,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .post('/asociaciones/asociacion/', NativeformData, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

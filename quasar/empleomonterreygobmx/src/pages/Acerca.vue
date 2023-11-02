@@ -17,7 +17,7 @@
       <div class="q-mx-auto q-pt-xl" :style="$q.screen.lt.sm  ? 'max-width: 30%' : 'max-width: 10%'">
         <img
           src="/img/logos/logo_siga.png"
-          alt="Bolsa de empleo - Gobierno de Monterrey"
+          alt="Adopta Monterrey - Gobierno de Monterrey"
         />
       </div>
 

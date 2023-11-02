@@ -122,7 +122,7 @@ import { useQuasar } from 'quasar'
 
 import { useSiteContextStore } from 'stores/site-context'
 
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 
 import { getEstados, getMunicipios, getSubsectorSCIAN } from '../boot/utils'
 import MtyFormFieldInput from 'components/forms/fields/MtyFormFieldInput.vue'
@@ -195,7 +195,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .post('/asociaciones/centro/', formData.value, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

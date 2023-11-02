@@ -182,7 +182,7 @@
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { apiEmpleo } from 'boot/axios'
+import { apiAdopta } from 'boot/axios'
 
 import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
@@ -209,7 +209,7 @@ export default defineComponent({
       setTimeout(() => {
         authStore.perfilUsuario.habilidades_nombre = []
 
-        apiEmpleo
+        apiAdopta
           .get('/base/habilidad/')
           .then((response) => {
             authStore.perfilUsuario.habilidades.map((id) => {

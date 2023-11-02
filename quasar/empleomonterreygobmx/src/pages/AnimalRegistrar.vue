@@ -493,10 +493,10 @@ import { useQuasar } from 'quasar'
 
 import { useSiteContextStore } from 'stores/site-context'
 
-import { apiEmpleo } from '../boot/axios'
+import { apiAdopta } from '../boot/axios'
 
 import {
-  getEmpresas,
+  getAsociaciones,
   getSucursales,
   getHabilidades,
   getCategorias,
@@ -549,7 +549,7 @@ export default defineComponent({
     onBeforeMount(() => {
       setTimeout(() => {
         if (authStore.localUserData.is_staff) {
-          getEmpresas(authStore.firebaseUserData.accessToken).then(
+          getAsociaciones(authStore.firebaseUserData.accessToken).then(
             (companies) => {
               companies.forEach((obj) => {
                 pageContext.opcionesAsociaciones.push(obj)
@@ -627,7 +627,7 @@ export default defineComponent({
         message:
           'Estamos enviando la información. Espere un momento por favor...',
       })
-      apiEmpleo
+      apiAdopta
         .post('/animales/padron/', NativeformData, {
           headers: {
             Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

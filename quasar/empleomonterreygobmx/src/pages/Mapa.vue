@@ -175,9 +175,9 @@ export default defineComponent({
       )
       .finally(() => {
       const currentRoute = router.currentRoute.value.path;
-      const newPath = currentRoute.includes('/empleos/favoritos')
-        ? `/empleos/favoritos/${job.id}`
-        : `/empleos/${job.id}`;
+      const newPath = currentRoute.includes('/animales/favoritos')
+        ? `/animales/favoritos/${job.id}`
+        : `/animales/${job.id}`;
 
       router.push({ path: newPath });
     });

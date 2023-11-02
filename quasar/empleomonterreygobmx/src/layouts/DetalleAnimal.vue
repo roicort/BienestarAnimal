@@ -430,7 +430,7 @@ import { useAuthStore } from 'stores/auth'
 import { date, useQuasar } from 'quasar'
 import { useSiteContextStore } from 'stores/site-context'
 import { useRoute, useRouter } from 'vue-router/dist/vue-router'
-import { apiEmpleo } from 'boot/axios'
+import { apiAdopta } from 'boot/axios'
 import { loginOIDC } from 'boot/utils'
 import MtyFormFieldInput from 'components/forms/fields/MtyFormFieldInput.vue'
 
@@ -525,7 +525,7 @@ function presubmitPostulacion() {
 const submitPostulacion = () => {
   formulario.value.validate().then((ok) => {
     if (ok) {
-      apiEmpleo
+      apiAdopta
         .post(
           '/animales/postulacion-adopcion/', formData,
           {
@@ -553,7 +553,7 @@ const submitPostulacion = () => {
 }
 
 const saveJob = () => {
-  apiEmpleo
+  apiAdopta
     .post(
       '/animales/animal-favorito/',
       {
@@ -583,7 +583,7 @@ const saveJob = () => {
 }
 
 const deleteJob = () => {
-  apiEmpleo
+  apiAdopta
     .delete(`/animales/animal-favorito/${favoritoId.value}/`, {
       headers: {
         Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,

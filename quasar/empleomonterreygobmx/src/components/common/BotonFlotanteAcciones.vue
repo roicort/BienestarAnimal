@@ -53,7 +53,7 @@
 <script>
 import {defineComponent, ref} from 'vue'
 import {useRouter} from 'vue-router'
-import {apiEmpleo} from 'boot/axios'
+import {apiAdopta} from 'boot/axios'
 
 export default defineComponent({
   name: 'BotonFlotanteAcciones',
@@ -68,7 +68,7 @@ export default defineComponent({
 
     const enviarEnlace = (item) => {
       if (item.value.enlace.tipo === 'pagina') {
-        apiEmpleo.get(`/paginas/${item.value.enlace.pagina}/`).then(response => {
+        apiAdopta.get(`/paginas/${item.value.enlace.pagina}/`).then(response => {
           window.location.assign(response.data.meta.html_url.replace('cms.', ''))
         })
       } else {
