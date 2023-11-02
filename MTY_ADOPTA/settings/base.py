@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'asociaciones',
     'perfiles',
     'animales',
+    'gisserver',
 
 ]
 

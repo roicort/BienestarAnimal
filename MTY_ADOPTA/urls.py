@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView, SpectacularRedocView
+from animales import views as animalesviews
 
 urlpatterns = [
     path("dadmin/", admin.site.urls, name="djangoadmin"),
@@ -10,6 +11,7 @@ urlpatterns = [
     path('rest/v1/schema/', SpectacularAPIView.as_view(), name='schema'),  # Asignar un nombre a la vista
     path('rest/v1/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('rest/v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('wfs/reportes/', animalesviews.ReportePerdidosWFSView.as_view()),
 ]
 
 if settings.DEBUG:

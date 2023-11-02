@@ -13,3 +13,4 @@ django-modelcluster
 django-taggit
 whitenoise
 drf-spectacular
+django-gisserver
