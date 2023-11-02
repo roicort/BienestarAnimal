@@ -104,7 +104,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from 'stores/auth'
 import { useSiteContextStore } from 'stores/site-context'
 
-import { getMisVacantes } from 'boot/utils'
+import { getMisAnimales } from 'boot/utils'
 
 import JobLoader from 'src/components/common/JobLoader.vue'
 
@@ -128,12 +128,12 @@ export default defineComponent({
 
     onMounted(() => {
       setTimeout(() => {
-        getMisVacantes(
+        getMisAnimales(
           authStore.firebaseUserData.accessToken,
           authStore.perfilUsuario.vinculaciones_asociaciones
-        ).then((vacantes) => {
-          console.log(vacantes)
-          if(vacantes.length == 0){
+        ).then((animales) => {
+          console.log(animales)
+          if(animales.length == 0){
             pageContext.emptyPet = true
           }
           columns.value = [
@@ -175,7 +175,7 @@ export default defineComponent({
           })
           */
 
-          vacantes.forEach((obj) => {
+          animales.forEach((obj) => {
             obj.nombre_empresa = obj.asociacion_info.nombre
             rows.value.push(obj)
           })
@@ -196,7 +196,7 @@ export default defineComponent({
       rows,
       columns,
       onDetail,
-      getMisVacantes,
+      getMisAnimales,
       pagination: {
         rowsPerPage: 0,
       },

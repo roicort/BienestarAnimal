@@ -36,7 +36,7 @@ async function getAdopciones() {
 
 }
 
-async function getMisVacantes(accessToken: string, vinculaciones: any) {
+async function getMisAnimales(accessToken: string, vinculaciones: any) {
 
   const asociaciones: any = []
   vinculaciones.forEach(function (obj: any) {  asociaciones.push(obj.asociacion) })
@@ -412,7 +412,7 @@ async function getGeneros() {
 
 export {
   getAsociaciones,
-  getMisVacantes,
+  getMisAnimales,
   getSucursales,
   getEstados,
   getMunicipios,

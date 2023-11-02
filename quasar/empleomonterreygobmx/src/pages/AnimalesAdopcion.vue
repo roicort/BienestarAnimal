@@ -131,9 +131,9 @@ export default defineComponent({
         getEnAdopcion(
           authStore.firebaseUserData.accessToken,
           authStore.perfilUsuario.vinculaciones_asociaciones
-        ).then((vacantes) => {
-          console.log(vacantes)
-          if(vacantes.length == 0){
+        ).then((adopciones) => {
+          console.log(adopciones)
+          if(adopciones.length == 0){
             pageContext.emptyPet = true
           }
           columns.value = [
@@ -175,7 +175,7 @@ export default defineComponent({
           })
           */
 
-          vacantes.forEach((obj) => {
+          adopciones.forEach((obj) => {
             obj.nombre_asociacion = obj.asociacion_info.nombre
             obj.nombre_animal = obj.animal_info.nombre
             rows.value.push(obj)

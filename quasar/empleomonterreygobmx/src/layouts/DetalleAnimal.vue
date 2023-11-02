@@ -474,11 +474,11 @@ const pageContext = reactive(
 )
 
 const checkEsFavorito = async () => {
-  console.log(siteContext.animal_seleccionado.vacante_favorita)
-  if (siteContext.animal_seleccionado.vacante_favorita && siteContext.animal_seleccionado.vacante_favorita.length > 0) {
-    if (siteContext.animal_seleccionado.vacante_favorita[0].id)
-      console.log(siteContext.animal_seleccionado.vacante_favorita[0].id)
-    favoritoId.value = siteContext.animal_seleccionado.vacante_favorita[0].id
+  console.log(siteContext.animal_seleccionado.animal_favorito)
+  if (siteContext.animal_seleccionado.animal_favorito && siteContext.animal_seleccionado.animal_favorito.length > 0) {
+    if (siteContext.animal_seleccionado.animal_favorito[0].id)
+      console.log(siteContext.animal_seleccionado.animal_favorito[0].id)
+    favoritoId.value = siteContext.animal_seleccionado.animal_favorito[0].id
     esFavorito.value = true
   }
 }

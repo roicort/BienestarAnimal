@@ -65,7 +65,7 @@ class MiPostulacionAdopcionListSerializer(serializers.ModelSerializer):
 
 class StaffAnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
-    vacante_favorita = serializers.SerializerMethodField('get_animal_favorito')
+    animal_favorito = serializers.SerializerMethodField('get_animal_favorito')
     postulado_info = serializers.SerializerMethodField('get_postulado_info')
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)
@@ -91,7 +91,7 @@ class StaffAnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
 class AnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 
-    vacante_favorita = serializers.SerializerMethodField('get_animal_favorito')
+    animal_favorito = serializers.SerializerMethodField('get_animal_favorito')
     postulado_info = serializers.SerializerMethodField('get_postulado_info')
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)

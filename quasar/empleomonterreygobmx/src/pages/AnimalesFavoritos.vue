@@ -15,7 +15,7 @@
           <p style="font-size: 30px"> {{ 'No por aquí... nada por allá...' }}</p>
         </div>
         <div class="flex justify-center items-center q-pl-xl q-pr-xl q-pt-md">
-          <span style="max-width: 75%; text-align: center;" >{{ 'Aún no has guardado vacantes' }}</span>
+          <span style="max-width: 75%; text-align: center;" >{{ 'Aún no has guardado animales' }}</span>
         </div>
       </div>
     </div>
