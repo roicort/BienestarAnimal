@@ -3,18 +3,21 @@
 
     <q-card class="my-card q-ml-lg q-mr-lg q-mb-xl" flat bordered>
 
-      <q-card-section horizontal>
-        <q-img :src="mascota.animal_info.foto" :ratio="1 / 1" />
-      </q-card-section>
+      <q-img v-if="$q.screen.gt.sm" :src="mascota.animal_info.foto" :ratio="1 / 1"/>
 
-      <q-card-section>
-        <div class="text-overline text-orange-9">{{ mascota.animal_info.categoria_info }}</div>
+      <q-card-section :horizontal="$q.screen.gt.sm ? false : true"> 
+
+        <q-img v-if="!$q.screen.gt.sm" :src="mascota.animal_info.foto" :ratio="1 / 1" :style="$q.screen.gt.sm ? '' : 'width: 50%' "/>
+
+        <q-card-section>
         <div class="text-h5 q-mt-sm q-mb-xs">{{ mascota.animal_info.nombre }}</div>
-        <div class="text-caption text-grey">
+        <div class="text-overline text-orange-9">{{ mascota.animal_info.categoria_nombre }}</div>
+
+        <div class="text-caption text-grey q-mb-xs">
           {{ mascota.animal_info.descripcion }}
         </div>
 
-        <q-item-section side top class="self-start text-right">
+        <q-item-section side top class="self-start text-right q-mb-xs">
           <q-item-label caption>
             hace
             {{
@@ -41,27 +44,30 @@
           </q-item-label>
         </q-item-section>
 
-      </q-card-section>
+        <q-item-section >
 
-      <q-card-section>
-        <q-avatar rounded size="20px">
-          <q-img v-if="mascota.asociacion_info.logo" :src="mascota.asociacion_info.logo" fit="contain" />
-          <span v-else class="text-white text-weight-regular">
-            {{ mascota.animal_info.nombre.slice(0, 1) }}
-          </span>
-        </q-avatar>
-        <div v-if="mascota.label" class="text-caption text-grey">
-          {{ mascota.asociacion_info.nombre }}
-          <q-icon size="xs" name="verified" class="q-mb-xs"
-            :color="mascota.asociacion_info.esta_verificada ? 'blue' : 'grey'">
-            <q-tooltip :delay="1000" class="bg-grey-4 text-black" anchor="center end" self="center start">
-              {{ mascota.asociacion_info.esta_verificada ? 'Empresa verificada' : 'Empresa no verificada' }}
-            </q-tooltip>
-          </q-icon>
-        </div>
+          <div v-if="mascota.asociacion_info" class="text-caption text-grey">
+            <q-avatar rounded size="32px">
+              <q-img v-if="mascota.asociacion_info.logo" :src="mascota.asociacion_info.logo" fit="contain" />
+            </q-avatar>
+            {{ mascota.asociacion_info.nombre }}
+            <q-icon size="14px" name="verified" class="q-mb-xs"
+              :color="mascota.asociacion_info.esta_verificada ? 'blue' : 'grey'">
+              <q-tooltip :delay="1000" class="bg-grey-4 text-black" anchor="center end" self="center start">
+                {{ mascota.asociacion_info.esta_verificada ? 'Asociacion verificada' : 'Asociacion no verificada' }}
+              </q-tooltip>
+            </q-icon>
+
+          </div>
+        
+        </q-item-section>
+
+        </q-card-section>
+
       </q-card-section>
       
     </q-card>
+
   </div>
 </template>
 
