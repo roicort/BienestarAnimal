@@ -303,10 +303,10 @@
         <q-route-tab
           no-caps
           disable
-          icon="mdi-smart-card"
-          to="/animales/recomendados"
-          name="recommended"
-          label="Recomendadas"
+          icon="search"
+          to="/animales/perdidos"
+          name="perdidos"
+          label="Perdidos"
         >
           <q-tooltip> Próximamente </q-tooltip>
         </q-route-tab>
