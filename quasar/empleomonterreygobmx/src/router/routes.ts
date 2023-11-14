@@ -31,11 +31,11 @@ const routes: RouteRecordRaw[] = [
       {path: 'asociaciones/centros/:id', component: () => import('src/pages/DetalleSucursales.vue')},
       {path: 'asociaciones/centros/detalle/:id', component: () => import('src/pages/EditarSucursal.vue')},
       
-      {path: 'adopciones/', component: () => import('src/pages/ReclutadorPostulaciones.vue')},
+      {path: 'adopciones', component: () => import('src/pages/ReclutadorPostulaciones.vue')},
+      {path: 'perdidos', component: () => import('src/pages/PaginaPerdidos.vue')},
 
-      {path: 'unauthorized', component: () => import('pages/Unauthorized.vue')},
-      {path: 'tablero', component: () => import('pages/Tablero.vue')},
-      //{path: 'mapa', component: () => import('pages/Mapa.vue')},
+      //{path: 'unauthorized', component: () => import('pages/Unauthorized.vue')},
+      //{path: 'tablero', component: () => import('pages/Tablero.vue')},
       {path: 'acerca', component: () => import('pages/Acerca.vue')},
       {path: 'ayuda', component: () => import('pages/Ayuda.vue')},
 
