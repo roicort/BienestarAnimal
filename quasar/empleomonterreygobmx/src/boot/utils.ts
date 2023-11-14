@@ -8,18 +8,34 @@ import {firebaseAuth} from 'boot/firebase'
 
 // Vacantes --------------------------------------------------------------
 
-async function getPadron() {
+async function getPadron(accessToken: string, id: any) {
 
-  const response = await apiAdopta.get('/animales/padron/')
+  let petition  = '/animales/padron/'
 
-  response.data.forEach(function (obj: any) {
-    obj.label = obj.nombre
-    delete obj.nombre
-    obj.value = obj.id
+  if(id) {
+    petition += id + '/'
+  }
+
+  const response = await apiAdopta.get(petition, {
+    headers: {
+      'Authorization': 'Bearer ' + accessToken,
+    }
   })
 
-  return response.data;
-
+  if(id){
+    response.data.label = response.data.nombre
+    delete response.data.nombre
+    response.data.value = response.data.id
+    return response.data
+  }
+  else{
+    response.data.forEach(function (obj: any) {
+      obj.label = obj.nombre
+      delete obj.nombre
+      obj.value = obj.id
+    })
+    return response.data;
+  }
 }
 
 async function getAdopciones() {
