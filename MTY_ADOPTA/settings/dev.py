@@ -12,7 +12,7 @@ ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",
-    "172.21.50.125"
+    "https://172.21.50.125"
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
