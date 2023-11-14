@@ -14,3 +14,5 @@ django-taggit
 whitenoise
 drf-spectacular
 django-gisserver
+django-admin-interface
+python-dotenv
