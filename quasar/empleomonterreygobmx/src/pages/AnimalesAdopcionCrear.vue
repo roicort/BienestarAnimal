@@ -229,7 +229,7 @@ import {
 //import { computed } from '@vue/reactivity'
 
 export default defineComponent({
-  name: 'PostularVacante',
+  name: 'PostularAnimal',
   //components: { MtyFormFieldSelect, MtyFormFieldInput },
   setup() {
     const siteContext = useSiteContextStore()
