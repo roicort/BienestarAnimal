@@ -302,9 +302,8 @@
         />
         <q-route-tab
           no-caps
-          disable
           icon="search"
-          to="/animales/perdidos"
+          to="/perdidos"
           name="perdidos"
           label="Perdidos"
         >
