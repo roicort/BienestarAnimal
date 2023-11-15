@@ -1,8 +1,10 @@
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib import admin
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView, SpectacularRedocView
 from animales import views as animalesviews
+
+#from apirest.wms import MyWmsView
 
 urlpatterns = [
     path("dadmin/", admin.site.urls, name="djangoadmin"),
@@ -30,4 +32,5 @@ urlpatterns = urlpatterns + [
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
+    #re_path(r'^wms/$', MyWmsView.as_view(), name='wms'),
 ]

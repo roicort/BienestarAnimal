@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'perfiles',
     'animales',
     'gisserver',
+    #'wms',
 
 ]
 
