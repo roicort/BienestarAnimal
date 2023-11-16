@@ -6,7 +6,8 @@ SECRET_KEY = "django-insecure-!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m
 
 ALLOWED_HOSTS = [
     "adoptamosmonterrey.web.app",
-    "adopta.drf.dev.mun.apismty.gob.mx"
+    "adopta.drf.dev.mun.apismty.gob.mx",
+    "https://adopta.drf.dev.mun.apismty.gob.mx",
     ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
