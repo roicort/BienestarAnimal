@@ -6,6 +6,7 @@ SECRET_KEY = "django-insecure-!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m
 
 ALLOWED_HOSTS = [
     "172.21.50.125",
+    "adoptamosmonterrey.web.app",
     "adopta.drf.dev.mun.apismty.gob.mx"
     ]
 
