@@ -111,9 +111,11 @@ const projection = ref('EPSG:4326');
 const zoom = ref(12);
 const rotation = ref(0);
 
+import { baseAPIURL } from '../boot/axios'
+
 const format = inject('ol-format');
 
-const url = 'http://localhost:8000/wfs/reportes/?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=reporteperdido&OUTPUTFORMAT=geojson'
+const url = baseAPIURL + '/wfs/reportes/?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=reporteperdido&OUTPUTFORMAT=geojson'
 
 const geoJson = new format.GeoJSON();
 
