@@ -391,8 +391,8 @@ import {
   getHabilidades,
   getCategorias,
   getInclusiones,
-  getModalidades,
-  getDetalleVacante,
+  //getModalidades,
+  //getDetalleVacante,
 } from '../boot/utils'
 import MtyFormFieldInput from 'components/forms/fields/MtyFormFieldInput.vue'
 
@@ -435,7 +435,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       setTimeout(() => {
-        getDetalleVacante(authStore.firebaseUserData.accessToken, vacanteID)
+        /*getDetalleVacante(authStore.firebaseUserData.accessToken, vacanteID)
           .then((result) => {
             console.log('result', result.empresa_info)
             formData.value = result
@@ -447,7 +447,7 @@ export default defineComponent({
           })
           .then(() => {
             onSelectedCompany(formData.value.empresa)
-          })
+          })*/
 
         getHabilidades().then((result) => {
           pageContext.opcionesHabilidades = result
@@ -461,9 +461,9 @@ export default defineComponent({
           pageContext.opcionesInclusion = result
         })
 
-        getModalidades().then((result) => {
+        /*getModalidades().then((result) => {
           pageContext.opcionesModalidades = result
-        })
+        })*/
       }, 1000)
     })
 

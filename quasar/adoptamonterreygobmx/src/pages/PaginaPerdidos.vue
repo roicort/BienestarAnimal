@@ -85,26 +85,6 @@
       </template>
     </ol-overlay>
 
-    <ol-vector-layer>
-      <ol-source-vector>
-        <ol-feature ref="animationPath">
-          <ol-geom-line-string :coordinates="path"></ol-geom-line-string>
-          <ol-style-flowline color="red" color2="yellow" :width="10" :width2="10" :arrow="1" />
-        </ol-feature>
-        <ol-animation-path v-if="animationPath" :path="animationPath.feature" :duration="4000" :repeat="10">
-          <ol-feature>
-            <ol-geom-point :coordinates="path[0]"></ol-geom-point>
-            <ol-style>
-              <ol-style-circle :radius="10">
-                <ol-style-fill color="blue"></ol-style-fill>
-                <ol-style-stroke color="blue" :width="2"></ol-style-stroke>
-              </ol-style-circle>
-            </ol-style>
-          </ol-feature>
-        </ol-animation-path>
-      </ol-source-vector>
-    </ol-vector-layer>
-
     <ol-vector-image-layer>
       <ol-source-vector :url="url" :format="geoJson"> </ol-source-vector>
       <ol-style>
