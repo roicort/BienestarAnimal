@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ["*"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",
     "https://adoptamosmonterrey.web.app",
+    "https://adopta.drf.dev.mun.apismty.gob.mx"
     "https://172.21.50.125"
 ]
 
