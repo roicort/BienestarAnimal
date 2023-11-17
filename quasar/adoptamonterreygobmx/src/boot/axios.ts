@@ -23,7 +23,7 @@ let apiMTYURL = ''
 //window.location.origin === 'http://localhost:9000' || window.location.origin === 'http://127.0.0.1:9000' ? baseURL = 'https://cms.pruebas.mty.gob.mx/api/v1' : baseURL = window.location.origin.replace('://', '://cms.') + '/api/v1'
 //window.location.origin === 'http://localhost:9000' || window.location.origin === 'http://127.0.0.1:9000' ? baseURL = 'https://api.adopta.testing.monterrey.gob.mx/rest/v1' : baseURL = window.location.origin.replace('://', '://cms.') + '/api/v1'
 
-baseAPIURL = 'https://adopta.drf.dev.mun.apismty.gob.mx/' // Adopta
+baseAPIURL = 'https://adopta.drf.dev.mun.apismty.gob.mx/rest/v1' // Adopta
 apiAuthURL = 'https://auth.monterrey.gob.mx/rest/v1'   // Autenticación
 apiCMSURL = 'https://cms.www.monterrey.gob.mx/rest/v1'    // Contenidos del CMS
 apiIDEURL = 'https://ide.api.monterrey.gob.mx/rest/v1'  // Catálogos de IDE

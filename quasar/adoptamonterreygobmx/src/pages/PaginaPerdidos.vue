@@ -115,7 +115,7 @@ import { baseAPIURL } from '../boot/axios'
 
 const format = inject('ol-format');
 
-const url = baseAPIURL + '/wfs/reportes/?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=reporteperdido&OUTPUTFORMAT=geojson'
+const url = baseAPIURL.replace('/rest/v1','') + '/wfs/reportes/?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=reporteperdido&OUTPUTFORMAT=geojson'
 
 const geoJson = new format.GeoJSON();
 
