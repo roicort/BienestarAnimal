@@ -371,7 +371,7 @@
 
             <div class="row justify-center">
               <div class="text-grey">
-                ¿Quieres más información sobre este empleo?
+                ¿Quieres más información sobre este animal?
               </div>
             </div>
 
