@@ -9,8 +9,8 @@ ALLOWED_HOSTS = [
     ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://adoptamosmonterrey.web.app",
-    "adoptamosmonterrey.web.app",
+    "https://adoptamos.web.app",
+    "adoptamos.web.app",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
