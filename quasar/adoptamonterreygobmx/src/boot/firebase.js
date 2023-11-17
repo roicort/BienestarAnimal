@@ -5,13 +5,13 @@ import {getStorage} from 'firebase/storage';
 import {getAuth} from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzZI8kumZqOShHQaTrzbwNaA0JiEMwg7M",
-  authDomain: "adoptamos.web.app",
-  projectId: "mty-id-dev",
-  storageBucket: "mty-id-dev.appspot.com",
-  messagingSenderId: "149828993345",
-  appId: "1:149828993345:web:11757472dbff01d7ebe1c0",
-  measurementId: "G-F293PRW558"
+  apiKey: 'AIzaSyDzZI8kumZqOShHQaTrzbwNaA0JiEMwg7M',
+  authDomain: 'adoptamos.web.app',
+  projectId: 'mty-id-dev',
+  storageBucket: 'mty-id-dev.appspot.com',
+  messagingSenderId: '149828993345',
+  appId: '1:149828993345:web:11757472dbff01d7ebe1c0',
+  measurementId: 'G-F293PRW558'
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
