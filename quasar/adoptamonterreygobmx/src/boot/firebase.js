@@ -6,7 +6,7 @@ import {getAuth} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBKjAp_Dyb3QuZRBLi7bxUigxJQ4D4p4-c',
-  authDomain: 'id-mty.firebaseapp.com',
+  authDomain: 'adoptamos.web.app',
   projectId: 'id-mty',
   storageBucket: 'id-mty.appspot.com',
   messagingSenderId: '795395350214',
