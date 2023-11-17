@@ -11,7 +11,8 @@ SECRET_KEY = "django-insecure-!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m
 ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://adoptamosmonterrey.web.app"
+    "https://adoptamosmonterrey.web.app",
+    "adoptamosmonterrey.web.app/",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
