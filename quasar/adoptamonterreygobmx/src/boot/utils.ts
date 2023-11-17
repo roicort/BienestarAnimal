@@ -383,7 +383,7 @@ const loginOIDC = ($q: any) => {
         message: 'Iniciando sesión, por favor espera...',
       })
       try {
-        const provider = new OAuthProvider('oidc.empleo.monterrey.gob.mx')
+        const provider = new OAuthProvider('oidc.adoptamos.web.app')
         signInWithRedirect(firebaseAuth, provider)
       } catch (error) {
         console.log('error', error)
