@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "adoptamosmonterrey",
+    "site": "adoptamos",
     "public": "dist/spa",
     "ignore": [
       "firebase.json",
