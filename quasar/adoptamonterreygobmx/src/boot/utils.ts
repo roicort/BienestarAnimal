@@ -3,7 +3,7 @@
 /***********/
 
 import {apiAdopta, apiIde, apiMty} from 'boot/axios'
-import {OAuthProvider, signInWithPopup} from 'firebase/auth'
+import {OAuthProvider, signInWithRedirect} from 'firebase/auth'
 import {firebaseAuth} from 'boot/firebase'
 
 // Vacantes --------------------------------------------------------------
@@ -384,7 +384,7 @@ const loginOIDC = ($q: any) => {
       })
       try {
         const provider = new OAuthProvider('oidc.empleo.monterrey.gob.mx')
-        signInWithPopup(firebaseAuth, provider)
+        signInWithRedirect(firebaseAuth, provider)
       } catch (error) {
         console.log('error', error)
         $q.notify({
