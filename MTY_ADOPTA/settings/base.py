@@ -206,3 +206,5 @@ DATABASES = {
         'HOST': os.environ.get("DB_HOST"),
     }
 }
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
