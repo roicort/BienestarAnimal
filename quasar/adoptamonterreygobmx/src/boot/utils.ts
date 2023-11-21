@@ -10,17 +10,14 @@ import {firebaseAuth} from 'boot/firebase'
 
 async function getPadron(accessToken: string, id: any) {
 
-  let petition  = '/animales/padron/'
+  const petition  = '/animales/padron/' + (id ? id + '/' : '')
+  const headers: { [key: string]: string } = {};
 
-  if(id) {
-    petition += id + '/'
+  if (accessToken) {
+    headers['Authorization'] = 'Bearer ' + accessToken;
   }
 
-  const response = await apiAdopta.get(petition, {
-    headers: {
-      'Authorization': 'Bearer ' + accessToken,
-    }
-  })
+  const response = await apiAdopta.get(petition, { headers })
 
   if(id){
     response.data.label = response.data.nombre
@@ -426,6 +423,23 @@ async function getGeneros() {
 
 // -----------------------------------------------------------------
 
+// -----------------------------------------------------------------
+
+const mostrarLoadingError429 = (error: any, route= '/', $q: any) => {
+  if(error && error.response.status === 429) {
+    $q.loading.show({
+      message: 'Por actividad inusual el servicio ha sido restringido. Se reanuda navegación en 60 segundos...'
+    })
+  }
+
+  setTimeout(() => {
+    $q.loading.hide()
+    console.log('route de ruta', route)
+    // router.push(route)
+    location.reload()
+  }, 60000)
+}
+
 export {
   getAsociaciones,
   getMisAnimales,
@@ -450,5 +464,6 @@ export {
   getGeneros,
   getEnAdopcion,
   getAdopciones,
-  getPerdidos
+  getPerdidos,
+  mostrarLoadingError429
 }

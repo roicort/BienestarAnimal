@@ -271,6 +271,8 @@
                   <!--                </q-btn>-->
                 </div>
 
+                <BotonApps/>
+
                 <BotonCuenta v-if="authStore.firebaseUserData.uid" />
                 <!--
                 <q-btn round dense flat
@@ -288,7 +290,6 @@
       </q-toolbar>
 
       <q-tabs
-        v-show="authStore.firebaseUserData.uid"
         v-model="siteContext.current_page"
         align="left"
         class="bg-primary text-white"
@@ -298,16 +299,16 @@
           icon="pets"
           to="/"
           name="all"
-          label="En Adopción"
+          label="Adoptamos"
         />
         <q-route-tab
           no-caps
           icon="search"
           to="/perdidos"
           name="perdidos"
-          label="Perdidos"
+          label="Buscamos"
         >
-          <q-tooltip> Próximamente </q-tooltip>
+        <q-tooltip> Próximamente </q-tooltip>
         </q-route-tab>
         <q-route-tab
           no-caps
@@ -315,6 +316,7 @@
           to="/adopcion/favoritos"
           name="saved"
           label="Guardados"
+          v-show="authStore.firebaseUserData.uid"
         >
         </q-route-tab>
         <q-route-tab
@@ -323,11 +325,13 @@
           to="/adopcion/aplicaciones"
           name="applied"
           label="Aplicados"
+          v-show="authStore.firebaseUserData.uid"
         >
         <q-badge v-if="authStore.perfilUsuario.aceptaciones" color="red" floating>{{ authStore.perfilUsuario.aceptaciones }}</q-badge>
         </q-route-tab>
         <q-route-tab
           v-if="authStore.localUserData.is_staff"
+          v-show="authStore.firebaseUserData.uid"
           no-caps
           icon="mdi-account"
           to="/tablero"
@@ -466,6 +470,8 @@ import DetalleAnimal from 'src/layouts/DetalleAnimal.vue'
 import BotonCuenta from 'components/common/BotonCuenta.vue'
 import JobLoader from 'src/components/common/JobLoader.vue'
 
+import BotonApps from 'components/common/BotonApps.vue'
+
 import { setCssVar } from 'quasar'
 import { loginOIDC } from 'boot/utils'
 
@@ -475,6 +481,7 @@ export default {
     DetalleAnimal,
     BotonCuenta,
     JobLoader,
+    BotonApps,
   },
   setup() {
 
