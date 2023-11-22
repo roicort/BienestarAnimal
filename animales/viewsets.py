@@ -49,7 +49,7 @@ class AdopcionViewSet(viewsets.ModelViewSet):
     queryset = Adopcion.objects.all()
     permission_classes = [IsStaffOrVinculacionAsociacionOrReadOnly]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend,filters.OrderingFilter]
-    search_fields = ['animal__nombre']
+    search_fields = ['animal__nombre', 'animal__descripcion', 'animal__categoria__nombre', 'animal__asociacion__nombre']
     filterset_fields = ['asociacion', 'centro', 'animal__categoria']
     ordering_fields = ['fecha_publicacion_inicio']
 
