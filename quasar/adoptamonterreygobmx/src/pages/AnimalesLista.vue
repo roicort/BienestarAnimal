@@ -1,7 +1,7 @@
 <template>
   <q-page>
 
-    <q-dialog v-if="false" v-model="pageContext.filterpop" persistent>
+    <q-dialog v-model="pageContext.filterpop" persistent>
       <q-card class="q-pa-lg" style="width: 700px; max-width: 80vw">
         <q-item-label header class="text-h6 q-pt-lg">Filtros</q-item-label>
 
@@ -21,19 +21,6 @@
         <q-card-section class="column full-height">
           <q-select filled multiple v-model="pageContext.categorias_seleccionadas" use-chips label="Categorías"
             :options="pageContext.categorias" @filter="filterCategoria">
-            <template v-slot:no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  Sin resultados
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
-        </q-card-section>
-
-        <q-card-section v-if="false">
-          <q-select filled multiple v-model="pageContext.inclusiones_seleccionadas" use-chips label="Inclusiones"
-            :options="pageContext.inclusiones" @filter="filterInclusion">
             <template v-slot:no-option>
               <q-item>
                 <q-item-section class="text-grey">
@@ -73,20 +60,20 @@
     </div>
 
 
-    <q-slide-transition v-if="false" > 
-    <q-input class="q-ma-md" v-model="pageContext.search" dense debounce="1000" :borderless="!pageContext.activesearch" :rounded="pageContext.activesearch" :outlined="pageContext.activesearch" :loading="pageContext.searching" type="search"
-      @update:model-value="filterData" @focus="pageContext.activesearch = true">
-      <template v-slot:append v-if="!pageContext.searching">
-        <q-icon name="search" />
-        <q-btn v-if="pageContext.search == ''" flat
-          class="text-weight-light text-grey-10 q-pt-sm q-px-sm q-my-sm q-mx-sm relative-position flat cursor-pointer"
-          @click="pageContext.filterpop = !pageContext.filterpop">
-          <q-icon name="tune" />
-          <span class="q-ml-sm">Filtro</span>
-        </q-btn>
-      </template>
-    </q-input>
-  </q-slide-transition>
+    <q-slide-transition > 
+      <q-input class="q-ma-md" v-model="pageContext.search" dense debounce="1000" :borderless="!pageContext.activesearch" :rounded="pageContext.activesearch" :outlined="pageContext.activesearch" :loading="pageContext.searching" type="search"
+        @update:model-value="filterData" @focus="pageContext.activesearch = true">
+        <template v-slot:append v-if="!pageContext.searching">
+          <q-icon name="search" />
+          <q-btn v-if="pageContext.search == ''" flat
+            class="text-weight-light text-grey-10 q-pt-sm q-px-sm q-my-sm q-mx-sm relative-position flat cursor-pointer"
+            @click="pageContext.filterpop = !pageContext.filterpop">
+            <q-icon name="tune" />
+            <span class="q-ml-sm">Filtro</span>
+          </q-btn>
+        </template>
+      </q-input>
+    </q-slide-transition>
 
     <div v-if="siteContext.animales_filtrados.length > 0 &&
       pageContext.emptyPet === false &&
@@ -227,7 +214,7 @@ export default defineComponent({
         pageContext.modalidades_seleccionadas = []
         pageContext.inclusiones_seleccionadas = []
 
-        let petition = '/animales/animal/?search=' + pageContext.search
+        let petition = '/animales/adopciones/?search=' + pageContext.search
         apiAdopta.get(petition+orden).then((response) => {
           siteContext.animales_filtrados = response.data
           pageContext.emptyFilter = siteContext.animales_filtrados.length === 0
@@ -240,11 +227,11 @@ export default defineComponent({
         pageContext.inclusiones_seleccionadas.length > 0
       ) {
         console.log('case2')
-        let petition = '/animales/animal/?'
+        let petition = '/animales/adopciones/?'
 
         if (pageContext.categorias_seleccionadas.length > 0) {
           pageContext.categorias_seleccionadas.forEach((cat, index) => {
-            petition += '&categoria=' + cat.value
+            petition += '&animal__categoria=' + cat.value
           })
         }
         if (pageContext.inclusiones_seleccionadas.length > 0) {
@@ -260,7 +247,7 @@ export default defineComponent({
 
       } else {
         console.log('case3')
-        apiAdopta.get('animales/animal/?'+orden).then((response) => {
+        apiAdopta.get('animales/adopciones/?'+orden).then((response) => {
           siteContext.animales_filtrados = response.data
           pageContext.emptyFilter = siteContext.animales_filtrados.length === 0
         })
