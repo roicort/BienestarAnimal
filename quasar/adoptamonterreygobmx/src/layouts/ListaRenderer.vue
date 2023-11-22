@@ -3,11 +3,11 @@
 
     <q-card class="my-card q-ml-lg q-mr-lg q-mb-xl" flat bordered>
 
-      <q-img v-if="$q.screen.gt.sm" :src="mascota.animal_info.foto" :ratio="1 / 1"/>
+      <q-img v-if="$q.screen.gt.sm && !siteContext.drawerRight" :src="mascota.animal_info.foto" :ratio="1 / 1"/>
 
-      <q-card-section :horizontal="$q.screen.gt.sm ? false : true"> 
+      <q-card-section :horizontal="($q.screen.lt.sm || siteContext.drawerRight ) ? true : false"> 
 
-        <q-img v-if="!$q.screen.gt.sm" :src="mascota.animal_info.foto" :ratio="1 / 1" :style="$q.screen.gt.sm ? '' : 'width: 50%' "/>
+        <q-img v-if="($q.screen.lt.sm || siteContext.drawerRight )" :src="mascota.animal_info.foto" :ratio="1 / 1" :style="($q.screen.lt.sm || siteContext.drawerRight ) ? 'width: 50%' : '' "/>
 
         <q-card-section>
         <div class="text-h5 q-mt-sm q-mb-xs">{{ mascota.animal_info.nombre }}</div>
@@ -93,8 +93,6 @@ const props = defineProps({
 const componentContext = reactive({
   animales: props.animales
 });
-
-console.log('componentContext.animales', componentContext.animales)
 
 const diasdesdepublicacion = (fecha_publicacion_inicio: any) => {
   return Math.floor(
