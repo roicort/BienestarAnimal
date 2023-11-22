@@ -46,11 +46,11 @@ class AnimalViewSet(viewsets.ModelViewSet):
 class AdopcionViewSet(viewsets.ModelViewSet):
     
     serializer_class = AdopcionSerializer
-    #queryset = Animal.objects.filter(id__in=adopciones.values_list('animal', flat=True))
     queryset = Adopcion.objects.all()
     permission_classes = [IsStaffOrVinculacionAsociacionOrReadOnly]
-    filter_backends = [filters.SearchFilter,DjangoFilterBackend,filters.OrderingFilter]
-    filterset_fields = ['asociacion', 'centro']
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend,filters.OrderingFilter]
+    search_fields = ['animal__nombre']
+    filterset_fields = ['asociacion', 'centro', 'animal__categoria']
     ordering_fields = ['fecha_publicacion_inicio']
 
 class ReportePerdidoViewSet(viewsets.ModelViewSet):
