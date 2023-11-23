@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'asociaciones',
     'perfiles',
     'animales',
+    'import_export',
+    'daterange.apps.DateRangeFilterConfig',
     'gisserver',
     #'wms',
 
