@@ -117,7 +117,7 @@ class VinculacionAsociacion(models.Model):
     """
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_rol = models.CharField(max_length=30, default='reclutador', choices=(('', 'Rol de usuario'), ('coordinador', 'Coordinador'),('empleado', 'Empleado')))
+    user_rol = models.CharField(max_length=30, default='reclutador', choices=(('', 'Rol de usuario'), ('coordinador', 'Coordinador'),('staff', 'Staff')))
 
     def __str__(self):
         return f"{self.asociacion} ({self.user} - {self.user_rol})"
@@ -127,7 +127,7 @@ class VinculacionAsociacion(models.Model):
         if created:
             request = get_current_request()
             if request and request.user and request.user.is_authenticated and not request.user.is_staff:
-                VinculacionAsociacion.objects.create(asociacion=instance, user=request.user, user_rol='reclutador')
+                VinculacionAsociacion.objects.create(asociacion=instance, user=request.user, user_rol='staff')
                 # TODO: Add a signal to delete the logo file when the asociacion is deleted
                 # TODO: Set image path per asociacion
 
@@ -149,10 +149,10 @@ class VinculacionAsociacion(models.Model):
                                                                                              asociacion=self.asociacion).user_rol
                     except Exception:
                         pass
-                    request_user_level = {'coordinador': 3, 'supervisor': 2, 'reclutador': 1, 'ninguno': 0}[request_user_vinculacionasociacion_rol]
-                    self_user_level = {'coordinador': 3, 'supervisor': 2, 'reclutador': 1}[self.user_rol]
+                    request_user_level = {'coordinador': 2, 'staff': 1, 'ninguno': 0}[request_user_vinculacionasociacion_rol]
+                    self_user_level = {'coordinador': 2, 'staff': 1}[self.user_rol]
                     if request_user_level < 2 and request.user == self.user:
-                        self.user_rol = 'reclutador'
+                        self.user_rol = 'staff'
                         super(VinculacionAsociacion, self).save(*args, **kwargs)
                     elif request_user_level > 1 and request_user_level > self_user_level:
                         super(VinculacionAsociacion, self).save(*args, **kwargs)
