@@ -1,4 +1,5 @@
 <template>
+
   <q-dialog v-model="pageContext.dialog">
     <q-card>
 
@@ -78,33 +79,6 @@
           {{ siteContext.animal_seleccionado.nombre }}
         </div>
         <q-space></q-space>
-        <div class="text-grey-8 self-center" style="font-size: xx-small;">
-          <span>
-            Quédan
-            {{
-              Math.floor(
-                (new Date(siteContext.animal_seleccionado.fecha_publicacion_fin) -
-                  Date.now()) /
-                1000 /
-                60 /
-                60 /
-                24
-              )
-            }}
-            {{
-              Math.floor(
-                (new Date(siteContext.animal_seleccionado.fecha_publicacion_fin) -
-                  Date.now()) /
-                1000 /
-                60 /
-                60 /
-                24
-              ) > 1
-              ? 'días'
-              : 'día'
-            }}
-          </span>
-        </div>
         <div class="col-auto self-center text-right">
           <q-btn v-if="authStore.firebaseUserData.uid === null" @click="
             authStore.firebaseUserData.uid
@@ -161,8 +135,8 @@
                 </q-item-section>
               </q-item>
               <q-item-section style="text-align: center;">
-                <q-item-label>Edad</q-item-label>
-                <q-item-label caption>{{ siteContext.animal_seleccionado.edad }}.</q-item-label>
+                <q-item-label>Cumpleaños</q-item-label>
+                <q-item-label caption>{{ siteContext.animal_seleccionado.fecha_nacimiento }}.</q-item-label>
               </q-item-section>
             </q-list>
           </q-card>
@@ -178,7 +152,7 @@
               </q-item>
               <q-item-section style="text-align: center;">
                 <q-item-label>Sexo</q-item-label>
-                <q-item-label caption>{{ siteContext.animal_seleccionado.sexo.toUpperCase()}}</q-item-label>
+                <q-item-label caption>{{ siteContext.animal_seleccionado.sexo}}</q-item-label>
               </q-item-section>
             </q-list>
           </q-card>
@@ -256,16 +230,6 @@
           </template>
         </div>
 
-        <div class="max-width-text q-pb-lg">
-          <span class="text-weight-regular">Rango de edad:</span>
-          <q-range class="q-pt-xl rango" readonly :model-value="{
-            min: siteContext.animal_seleccionado.edad_minima || 0,
-            max: siteContext.animal_seleccionado.edad_maxima || 100,
-          }" :min="0" :max="100" :step="10" markers thumb-size="26px" :left-label-value="(siteContext.animal_seleccionado.edad_minima || '1') + ' años'
-  " :right-label-value="(siteContext.animal_seleccionado.edad_maxima || '100') + ' años'
-    " label-always color="primary" />
-        </div>
-
       </q-card-section>
 
       <q-separator></q-separator>
@@ -276,31 +240,6 @@
           <span class="text-weight-regular q-pr-sm">Apto para niños:</span>
           <q-toggle v-model="siteContext.animal_seleccionado.apto_niños" color="primary" dense disable
             unchecked-icon="clear" checked-icon="check" />
-        </div>
-      </q-card-section>
-
-      <q-separator></q-separator>
-
-      <q-card-section class="q-px-lg q-pt-md">
-        <div class="max-width-text q-pb-sm">
-          <div>
-            <span class="text-weight-regular">Publicado el:</span>
-            {{
-              date.formatDate(
-                siteContext.animal_seleccionado.fecha_publicacion_inicio,
-                'DD / MMMM / YYYY'
-              )
-            }}
-          </div>
-          <div>
-            <span class="text-weight-regular">Disponible hasta:</span>
-            {{
-              date.formatDate(
-                siteContext.animal_seleccionado.fecha_publicacion_fin,
-                'DD / MMMM / YYYY'
-              )
-            }}
-          </div>
         </div>
       </q-card-section>
 

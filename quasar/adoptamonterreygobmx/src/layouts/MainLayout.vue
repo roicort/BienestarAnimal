@@ -303,6 +303,7 @@
         />
         <q-route-tab
           no-caps
+          disabled
           icon="search"
           to="/perdidos"
           name="perdidos"
