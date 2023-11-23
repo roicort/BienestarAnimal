@@ -7,26 +7,23 @@ from .serializers import AnimalCategoriaSerializer, AnimalInclusionSerializer, \
 from rest_framework import permissions
 from django.http import HttpResponse
 from asociaciones.models import VinculacionAsociacion
-from .permissions import IsStaffOrReadOnly, IsStaffOrVinculacionAsociacionOrReadOnly
+from .permissions import IsStaffOrVinculacionAsociacionOrReadOnly
 from django.contrib.auth.models import User
 from rest_framework import filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from .permissions import IsStaffOrReadOnly, IsStaffOrVinculacionAsociacionOrReadOnly
 
 import django.core.serializers as djcore_serialize
 
 class AnimalCategoriaViewSet(viewsets.ModelViewSet):
     queryset = AnimalCategoria.objects.all()
     serializer_class = AnimalCategoriaSerializer
-    permission_classes = [IsStaffOrReadOnly]
-    #permission_classes = [permissions.AllowAny]
+    read_only_fields = ['__all__']
 
 class AnimalInclusionViewSet(viewsets.ModelViewSet):
     queryset = AnimalInclusion.objects.all()
     serializer_class = AnimalInclusionSerializer
-    permission_classes = [IsStaffOrReadOnly]
-    #permission_classes = [permissions.AllowAny]
+    read_only_fields = ['__all__']
 
 class AnimalViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
