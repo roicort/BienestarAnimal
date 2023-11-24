@@ -83,7 +83,7 @@
                   v-show="!buscador"
                   src="https://mty-microwebapps.web.app/img/sdh/mty_sdh_logo_iso.svg"
                   spinner-color="white"
-                  style="width: 5rem"
+                  style="width: 5rem; object-fit: none;"
                   alt="Logo Sub Sitio"
                 />
               </div>
