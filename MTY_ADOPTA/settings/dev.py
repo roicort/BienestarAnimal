@@ -14,7 +14,9 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://adoptamos.web.app",
-    "adoptamos.web.app",
+    "http://adoptamos.web.app",
+    "http://localhost:9000",
+    "https://localhost:9000",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
