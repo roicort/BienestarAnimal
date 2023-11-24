@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 #admin.site.register(Animal)
 admin.site.register(Habilidad)
 admin.site.register(AnimalCategoria)
-admin.site.register(AnimalInclusion)
+admin.site.register(AnimalCaracteristica)
 #admin.site.register(PostulacionAdopcion)
 admin.site.register(AnimalFavorito)
 #admin.site.register(Adopcion)

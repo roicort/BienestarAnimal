@@ -1,5 +1,5 @@
 from apirest.urls import drf_router
-from .viewsets import AnimalCategoriaViewSet, AnimalInclusionViewSet, AdopcionViewSet, AnimalViewSet, ReportePerdidoViewSet, PostulacionAdopcionViewSet, MisPostulacionesAnimalViewSet, AnimalFavoritoViewSet
+from .viewsets import AnimalCategoriaViewSet, AnimalCaracteristicaViewSet, AdopcionViewSet, AnimalViewSet, ReportePerdidoViewSet, PostulacionAdopcionViewSet, MisPostulacionesAnimalViewSet, AnimalFavoritoViewSet
 
 urlpatterns = []
 
@@ -10,6 +10,6 @@ drf_router.register(r'animales/postulacion-adopcion', PostulacionAdopcionViewSet
 drf_router.register(r'animales/mis-postulaciones', MisPostulacionesAnimalViewSet, basename='mis-postulacion-animal')
 drf_router.register(r'animales/animal-favorito', AnimalFavoritoViewSet, basename='empleos-animal-favorita')
 drf_router.register(r'animales/animal-categoria', AnimalCategoriaViewSet, basename='empleos-animal-categoria')
-drf_router.register(r'animales/animal-inclusion', AnimalInclusionViewSet, basename='empleos-animal-inclusion')
+drf_router.register(r'animales/animal-inclusion', AnimalCaracteristicaViewSet, basename='empleos-animal-inclusion')
 
 urlpatterns += drf_router.urls

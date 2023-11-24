@@ -25,7 +25,7 @@ class AnimalCategoria(models.Model):
         verbose_name_plural = "Categorias de animales"
 
 
-class AnimalInclusion(models.Model):
+class AnimalCaracteristica(models.Model):
     nombre = models.CharField(max_length=150, unique=True)
 
     def __str__(self):
@@ -45,7 +45,7 @@ class Animal(models.Model):
     fecha_nacimiento = models.DateField(null=True, blank=True)
     habilidades = models.ManyToManyField(Habilidad, blank=True)
     apto_niños = models.BooleanField(default=False)
-    inclusiones = models.ManyToManyField(AnimalInclusion, blank=True)
+    caracteristicas = models.ManyToManyField(AnimalCaracteristica, blank=True)
     foto = models.ImageField(max_length=255, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)

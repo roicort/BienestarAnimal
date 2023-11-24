@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_dynamic_fields import DynamicFieldsMixin
 
-from .models import AnimalCategoria, AnimalInclusion, Animal, PostulacionAdopcion, AnimalFavorito, Adopcion, ReportePerdido
+from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, Adopcion, ReportePerdido
 from asociaciones.serializers import PubAsociacionSerializer, CentroSerializer
 from asociaciones.models import Centro
 from base.serializers import HabilidadSerializer
@@ -14,9 +14,9 @@ class AnimalCategoriaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AnimalInclusionSerializer(serializers.ModelSerializer):
+class AnimalCaracteristicaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AnimalInclusion
+        model = AnimalCaracteristica
         fields = '__all__'
 
 
@@ -76,7 +76,7 @@ class StaffAnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)
     habilidades_info = HabilidadSerializer(source='habilidades', read_only=True, many=True)
-    inclusiones_info = AnimalInclusionSerializer(source='inclusiones', read_only=True, many=True)
+    inclusiones_info = AnimalCaracteristicaSerializer(source='inclusiones', read_only=True, many=True)
 
     def get_animal_favorito(self, instance):
         user = self.context['request'].user
@@ -102,7 +102,7 @@ class AnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
     asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
     categoria_info = AnimalCategoriaSerializer(source='categoria', read_only=True)
     habilidades_info = HabilidadSerializer(source='habilidades', read_only=True, many=True)
-    inclusiones_info = AnimalInclusionSerializer(source='inclusiones', read_only=True, many=True)
+    inclusiones_info = AnimalCaracteristicaSerializer(source='inclusiones', read_only=True, many=True)
 
     def get_animal_favorito(self, instance):
         user = self.context['request'].user

@@ -1,7 +1,7 @@
 from django.db.models import Q
 from rest_framework import viewsets, exceptions
-from .models import AnimalCategoria, AnimalInclusion, Animal, PostulacionAdopcion, AnimalFavorito, ReportePerdido, Adopcion
-from .serializers import AnimalCategoriaSerializer, AnimalInclusionSerializer, \
+from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, ReportePerdido, Adopcion
+from .serializers import AnimalCategoriaSerializer, AnimalCaracteristicaSerializer, \
     StaffAnimalSerializer, AnimalSerializer, PostulacionAdopcionSerializer, PostulacionAdopcionListCreateSerializer, \
     AnimalFavoritoSerializer, AnimalFavoritoCreateSerializer, MiPostulacionAdopcionListSerializer, AdopcionSerializer, ReportePerdidoSerializer
 from rest_framework import permissions
@@ -20,9 +20,9 @@ class AnimalCategoriaViewSet(viewsets.ModelViewSet):
     serializer_class = AnimalCategoriaSerializer
     read_only_fields = ['__all__']
 
-class AnimalInclusionViewSet(viewsets.ModelViewSet):
-    queryset = AnimalInclusion.objects.all()
-    serializer_class = AnimalInclusionSerializer
+class AnimalCaracteristicaViewSet(viewsets.ModelViewSet):
+    queryset = AnimalCaracteristica.objects.all()
+    serializer_class = AnimalCaracteristicaSerializer
     read_only_fields = ['__all__']
 
 class AnimalViewSet(viewsets.ModelViewSet):
