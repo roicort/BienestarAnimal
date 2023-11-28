@@ -58,7 +58,6 @@ class Animal(models.Model):
     fecha_recepcion = models.DateField(auto_now_add=True)
     fecha_nacimiento = models.DateField(null=True, blank=True, default=django.utils.timezone.now)
     habilidades = models.ManyToManyField(Habilidad, blank=True)
-    apto_niños = models.BooleanField(default=False)
     caracteristicas = models.ManyToManyField(AnimalCaracteristica, blank=True)
     foto = models.ImageField(max_length=255, null=True, blank=True)
     señas_particulares = models.TextField(null=True, blank=True)
@@ -82,15 +81,10 @@ class Animal(models.Model):
 
     ###########################################################################
 
-    fecha_esterlizacion = models.DateField(null=True, blank=True)
-
-    fecha_desparacitacion = models.DateField(null=True, blank=True)
-
-    ###########################################################################
-
     convivencia = models.ManyToManyField(AnimalCategoria, related_name='convivencia_animals', blank=True)
 
     sociable = models.BooleanField(default=False)
+    apto_niños = models.BooleanField(default=False)
 
     adiestramiento_observaciones = models.TextField(null=True, blank=True)
 
