@@ -2,16 +2,14 @@ from django.contrib import admin
 from base.admin import CustomGeoModelAdmin
 from .models import *
 from django.contrib.auth.models import Group
+from django import forms
 
 # Register your models here.
 
-#admin.site.register(Animal)
 admin.site.register(Habilidad)
 admin.site.register(AnimalCategoria)
 admin.site.register(AnimalCaracteristica)
-#admin.site.register(PostulacionAdopcion)
-admin.site.register(AnimalFavorito)
-#admin.site.register(Adopcion)
+#admin.site.register(Procedimiento)
 
 ###### Estos recursos son para poder exportar los datos ######
 
@@ -25,14 +23,25 @@ class AnimalResource(resources.ModelResource):
     class Meta:
         model = Animal
 
+class AnimalAdminForm(forms.ModelForm):
+    class Meta:
+        model = Animal
+        fields = '__all__'
+        widgets = {
+            'procedimientos': forms.SelectMultiple(attrs={
+                'disabled': 'disabled'
+                }),
+        }
+
 @admin.register(Animal)
 class AnimalAdmin(ImportExportModelAdmin):
 
-    list_display = ('nombre','id', 'categoria', 'sexo')
+    form = AnimalAdminForm
+    list_display = ('nombre','id', 'categoria', 'sexo', 'FotoPreview')
     search_fields = ('id', 'nombre')
-    list_filter = ("categoria", 'asociacion', ("fecha_nacimiento", DateRangeFilter))
+    list_filter = ("categoria", 'asociacion__nombre', 'sexo', 'apto_niños', 'talla', ("fecha_nacimiento", DateRangeFilter))
+    read_only_fields = ('FotoPreview',)
     change_list_template = "admin/daterange/change_list.html"
-
     resource_classes = [AnimalResource]
 
 ###### Adopciones 
@@ -82,5 +91,22 @@ class ReportePerdidoAdmin(CustomGeoModelAdmin, ImportExportModelAdmin):
     change_list_template = "admin/daterange/change_list.html"
 
     resource_classes = [ReportePerdidoResource]
+
+###### Procedimiento
+
+class ProcedimientoResource(resources.ModelResource):
+    class Meta:
+        model = Procedimiento
+
+@admin.register(Procedimiento)
+class ProcedimientoAdmin(ImportExportModelAdmin):
+
+    list_display = ('id', 'servicio', 'animal', 'fecha_aplicacion', 'centro')
+    search_fields = ('id', 'servicio__nombre', 'animal')
+    list_filter = ('servicio__nombre', 'animal', 'centro__nombre', ("fecha_aplicacion", DateRangeFilter))
+    change_list_template = "admin/daterange/change_list.html"
+
+    resource_classes = [ProcedimientoResource]
+
 
 ####################################################################
