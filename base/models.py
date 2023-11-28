@@ -31,6 +31,7 @@ class Servicio(models.Model):
     class Meta:
         verbose_name = "Servicio"
         verbose_name_plural = "Servicios"
+        ordering = ['tipo']
 
     def __str__(self):
         return f"[{self.tipo}] {self.nombre}"
