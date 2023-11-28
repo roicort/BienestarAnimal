@@ -11,7 +11,10 @@ class CustomGeoModelAdmin(admin.GeoModelAdmin):
     wms_url = 'https://ows.terrestris.de/osm/service'
     wms_layer = 'OSM-WMS'
 
+# Register your models here.
 
+admin.site.register(TipoServicio)
+admin.site.register(Servicio)
 
 
 
