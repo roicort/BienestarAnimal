@@ -13,3 +13,24 @@ class Habilidad(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class TipoServicio(models.Model):
+    nombre = models.CharField(max_length=60, unique=True)
+
+    class Meta:
+        verbose_name = "Tipo de Servicio"
+        verbose_name_plural = "Tipos de Servicios"
+
+    def __str__(self):
+        return self.nombre
+
+class Servicio(models.Model):
+    tipo = models.ForeignKey(TipoServicio, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=60, unique=True)
+
+    class Meta:
+        verbose_name = "Servicio"
+        verbose_name_plural = "Servicios"
+
+    def __str__(self):
+        return self.nombre
