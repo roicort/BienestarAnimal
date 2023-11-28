@@ -127,10 +127,10 @@ class Procedimiento(models.Model):
 
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
-    descripcion = models.TextField()
     fecha_aplicacion = models.DateField(default=django.utils.timezone.now)
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
     centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
+    descripcion = models.TextField()
 
     def __str__(self):
         return f"[{self.servicio}] en [{self.fecha_aplicacion}] por [{self.asociacion}] a [{self.animal}]"
