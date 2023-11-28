@@ -27,7 +27,7 @@ class AnimalResource(resources.ModelResource):
 class AnimalAdmin(ImportExportModelAdmin):
 
     #form = AnimalAdminForm
-    list_display = ('nombre','id', 'categoria', 'sexo', 'FotoPreview')
+    list_display = ('nombre','id', 'categoria', 'sexo', 'FotoPreview', 'centro')
     search_fields = ('id', 'nombre')
     list_filter = ("categoria", 'asociacion__nombre', 'sexo', 'apto_niños', 'talla', ("fecha_nacimiento", DateRangeFilter))
     read_only_fields = ('FotoPreview',)
