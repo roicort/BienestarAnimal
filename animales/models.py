@@ -5,6 +5,8 @@ from base.models import Habilidad
 from django.utils import timezone
 from django.db.models import ProtectedError
 from threadlocals.threadlocals import get_current_request
+import django.utils 
+from django.utils.html import mark_safe
 
 
 # Create your models here.
@@ -34,25 +36,75 @@ class AnimalCaracteristica(models.Model):
     class Meta:
         ordering = ['id']
 
-
 class Animal(models.Model):
 
-    nombre = models.CharField(max_length=140)
-    categoria = models.ForeignKey(AnimalCategoria, on_delete=models.PROTECT)
-    descripcion = models.TextField()
-    sexo = models.CharField(max_length=32, choices=(
-        ('macho', 'Macho'), ('hembra', 'Hembra')))
-    fecha_nacimiento = models.DateField(null=True, blank=True)
-    habilidades = models.ManyToManyField(Habilidad, blank=True)
-    apto_niños = models.BooleanField(default=False)
-    caracteristicas = models.ManyToManyField(AnimalCaracteristica, blank=True)
-    foto = models.ImageField(max_length=255, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
     centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
 
+    nombre = models.CharField(max_length=140)
+    categoria = models.ForeignKey(AnimalCategoria, related_name='categoria_animals', on_delete=models.PROTECT)
+    descripcion = models.TextField()
+
+    class Sexo(models.TextChoices):
+        macho = 'macho', 'Macho'
+        hembra = 'hembra', 'Hembra'
+
+    sexo = models.CharField(
+        choices=Sexo.choices,
+    )
+
+    fecha_recepcion = models.DateField(auto_now_add=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True, default=django.utils.timezone.now)
+    habilidades = models.ManyToManyField(Habilidad, blank=True)
+    apto_niños = models.BooleanField(default=False)
+    caracteristicas = models.ManyToManyField(AnimalCaracteristica, blank=True)
+    foto = models.ImageField(max_length=255, null=True, blank=True)
+    señas_particulares = models.TextField(null=True, blank=True)
+
+    ###########################################################################
+
+    class Talla(models.TextChoices):
+        pequeno = 'pequeño', 'Pequeño'
+        mediano = 'mediano', 'Mediano'
+        grande = 'grande', 'Grande'
+
+    talla = models.CharField(
+        choices=Talla.choices,
+    )
+
+    peso = models.IntegerField(null=True, blank=True)
+
+    altura_cruz = models.IntegerField(null=True, blank=True)
+
+    longitud = models.IntegerField(null=True, blank=True)
+
+    ###########################################################################
+
+    fecha_esterlizacion = models.DateField(null=True, blank=True)
+
+    fecha_desparacitacion = models.DateField(null=True, blank=True)
+
+    ###########################################################################
+
+    convivencia = models.ManyToManyField(AnimalCategoria, related_name='convivencia_animals', blank=True)
+
+    sociable = models.BooleanField(default=False)
+
+    adiestramiento_observaciones = models.TextField(null=True, blank=True)
+
+    ###########################################################################
+
+    procedimientos = models.ManyToManyField('Procedimiento', related_name='animales_procedimiento', blank=True, null=True)
+
     def __str__(self):
         return f"{self.nombre}"
+
+    @property
+    def FotoPreview(self):
+        if self.foto:
+            return mark_safe('<img src="{}" style="max-width:200px; max-height:200px"/>'.format(self.foto.url))
+        return ""
 
     def save(self, *args, **kwargs):
         request = get_current_request()
@@ -75,6 +127,23 @@ class Animal(models.Model):
         ordering = ['nombre']
         verbose_name = "Animal"
         verbose_name_plural = "Animales"
+
+from base.models import Servicio
+
+class Procedimiento(models.Model):
+    servicio = models.ForeignKey(Servicio, on_delete=models.PROTECT)
+    descripcion = models.TextField()
+    fecha_aplicacion = models.DateField(default=django.utils.timezone.now)
+    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
+    centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
+    animal = models.OneToOneField('Animal', on_delete=models.CASCADE, related_name='procedimientos_procedimiento')
+
+    def __str__(self):
+        return f"[{self.servicio}] en [{self.fecha_aplicacion}] por [{self.asociacion}]"
+
+    class Meta:
+        verbose_name = "Procedimiento"
+        verbose_name_plural = "Procedimientos"
 
 class Adopcion(models.Model):
 
@@ -154,8 +223,9 @@ class ReportePerdido(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
     
     fecha_reporte = models.DateField(auto_now_add=True)
-    estatus = models.BooleanField(null=True, default=None)  # None = pendiente, True = aceptada, False = rechazada
-    fecha_encontrado = models.DateField(null=True, editable=False)
+
+
+    estatus = models.BooleanField(null=True, default=False)  # None = pendiente, True = aceptada, False = rechazada
 
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE, null=True, blank=True)
     centro = models.ForeignKey(Centro, on_delete=models.CASCADE, null=True, blank=True)
@@ -165,6 +235,8 @@ class ReportePerdido(models.Model):
     descripcion_hechos = models.TextField(null=True, blank=True)
 
     geom = models.PointField(null=True, blank=True)
+
+    fecha_encontrado = models.DateField(null=True )
 
     def __str__(self):
         return f"{self.user} ({self.animal})"
