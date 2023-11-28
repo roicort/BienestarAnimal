@@ -7,7 +7,8 @@ from django.db.models import ProtectedError
 from threadlocals.threadlocals import get_current_request
 import django.utils 
 from django.utils.html import mark_safe
-
+from base.models import Servicio
+from django.contrib import admin
 
 # Create your models here.
 
@@ -95,7 +96,7 @@ class Animal(models.Model):
 
     ###########################################################################
 
-    procedimientos = models.ManyToManyField('Procedimiento', related_name='animales_procedimiento', blank=True, null=True)
+    servicios = models.ManyToManyField(Servicio, through='Procedimiento')
 
     def __str__(self):
         return f"{self.nombre}"
@@ -128,22 +129,25 @@ class Animal(models.Model):
         verbose_name = "Animal"
         verbose_name_plural = "Animales"
 
-from base.models import Servicio
-
 class Procedimiento(models.Model):
-    servicio = models.ForeignKey(Servicio, on_delete=models.PROTECT)
+
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
     descripcion = models.TextField()
     fecha_aplicacion = models.DateField(default=django.utils.timezone.now)
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
     centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
-    animal = models.OneToOneField('Animal', on_delete=models.CASCADE, related_name='procedimientos_procedimiento')
 
     def __str__(self):
-        return f"[{self.servicio}] en [{self.fecha_aplicacion}] por [{self.asociacion}]"
+        return f"[{self.servicio}] en [{self.fecha_aplicacion}] por [{self.asociacion}] a [{self.animal}]"
 
     class Meta:
         verbose_name = "Procedimiento"
         verbose_name_plural = "Procedimientos"
+
+class ProcedimientoInline(admin.TabularInline):
+    model = Procedimiento
+    extra = 1  # Número de filas que se mostrarán.
 
 class Adopcion(models.Model):
 

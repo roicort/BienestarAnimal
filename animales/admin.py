@@ -23,26 +23,17 @@ class AnimalResource(resources.ModelResource):
     class Meta:
         model = Animal
 
-class AnimalAdminForm(forms.ModelForm):
-    class Meta:
-        model = Animal
-        fields = '__all__'
-        widgets = {
-            'procedimientos': forms.SelectMultiple(attrs={
-                'disabled': 'disabled'
-                }),
-        }
-
 @admin.register(Animal)
 class AnimalAdmin(ImportExportModelAdmin):
 
-    form = AnimalAdminForm
+    #form = AnimalAdminForm
     list_display = ('nombre','id', 'categoria', 'sexo', 'FotoPreview')
     search_fields = ('id', 'nombre')
     list_filter = ("categoria", 'asociacion__nombre', 'sexo', 'apto_niños', 'talla', ("fecha_nacimiento", DateRangeFilter))
     read_only_fields = ('FotoPreview',)
     change_list_template = "admin/daterange/change_list.html"
     resource_classes = [AnimalResource]
+    inlines = [ProcedimientoInline]
 
 ###### Adopciones 
 
