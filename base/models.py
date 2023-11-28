@@ -33,4 +33,4 @@ class Servicio(models.Model):
         verbose_name_plural = "Servicios"
 
     def __str__(self):
-        return self.nombre
+        return f"[{self.tipo}] {self.nombre}"
