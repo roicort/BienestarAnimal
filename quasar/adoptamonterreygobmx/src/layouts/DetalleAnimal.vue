@@ -437,9 +437,9 @@ function presubmitPostulacion() {
   console.log('presubmitPostulacion')
   if (userHasProfile.value === false) {
     $q.dialog({
-      title: 'Aplicar a vacante',
+      title: 'Aplicar a adopción',
       message:
-        'Para aplicar a una vacante es necesario tener completo el perfil',
+        'Para aplicar a una adopción es necesario tener completo el perfil',
       persistent: false,
       ok: {
         label: 'Completar perfil',
@@ -510,8 +510,8 @@ const saveJob = () => {
         favoritoId.value = response.data.id
         esFavorito.value = true
         $q.dialog({
-          title: '¡Vacante guardada!',
-          message: 'Su vacante se ha guardado correctamente.',
+          title: '¡Animal favorito!',
+          message: 'Has guardado este animal como favorito.',
           persistent: false,
         })
       }
@@ -533,8 +533,7 @@ const deleteJob = () => {
         esFavorito.value = false
         favoritoId.value = null
         $q.dialog({
-          title: '¡Vacante eliminada de favoritos!',
-          message: 'Su vacante se ha eliminado correctamente.',
+          title: '¡Este animal ya no es de tus favoritos!',
           persistent: false,
         }).onOk(() => {
           if (route.path === `/animales/favoritos/${route.params.id}`) {

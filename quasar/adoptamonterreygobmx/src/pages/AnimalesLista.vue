@@ -46,7 +46,7 @@
     <div class="row" v-if="pageContext.emptyPet === true">
       <div class="col self-center" style="padding-top: 15vh">
         <div class="q-mx-auto" :style="$q.screen.lt.sm ? 'max-width: 40%' : 'max-width: 20%'">
-          <img src="/img/logos/logo_empleo.png" alt="Bolsa de empleo - Gobierno de Monterrey" />
+          <img src="/img/logos/logo_bienestar_animal_min.svg" alt="Bolsa de empleo - Gobierno de Monterrey" />
         </div>
         <div class="flex full-width justify-center items-center q-pt-xl">
           <p style="font-size: 30px">{{ '¡Enhorabuena!' }}</p>
@@ -102,7 +102,7 @@
     <div class="row" v-if="pageContext.emptyFilter === true">
       <div class="col self-center" style="padding-top: 15vh">
         <div class="q-mx-auto" :style="$q.screen.lt.sm ? 'max-width: 40%' : 'max-width: 20%'">
-          <img src="/img/logos/logo_empleo.png" alt="Bolsa de empleo - Gobierno de Monterrey" />
+          <img src="/img/logos/logo_bienestar_animal_min.svg" alt="Bolsa de empleo - Gobierno de Monterrey" />
         </div>
         <div class="flex full-width justify-center items-center q-pt-xl">
           <p style="font-size: 30px">{{ '¡Cielos!' }}</p>

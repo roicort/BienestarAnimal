@@ -56,10 +56,10 @@
               class="q-px-none q-pr-md no-border no-border-radius no-box-shadow no-outline no-shadow no-hovereable"
             >
               <q-avatar square size="3.5rem" class="q-mr-sm">
-                <img src="/img/logos/iso_mty.png" alt="isotipo monterrey" />
+                <img src="https://micro.appsmty.gob.mx/img/gdm/mty_gdm_logo_iso.svg" alt="isotipo monterrey" />
               </q-avatar>
               <q-avatar v-show="!buscador" square size="3.5rem">
-                <img src="/img/logos/type_mty.png" alt="logotipo monterrey" />
+                <img src="https://micro.appsmty.gob.mx/img/gdm/mty_gdm_logo_tipo.svg" alt="logotipo monterrey" />
               </q-avatar>
             </q-btn>
           </transition>
@@ -72,7 +72,7 @@
             <q-btn
               v-show="!buscador"
               :to="'/'"
-              title="Bolsa de empleo"
+              title="Bienestar Animal Monterrey"
               :ripple="false"
               class="q-px-none q-pr-sm-sm no-border no-border-radius no-box-shadow no-outline no-shadow no-hovereable"
             >
@@ -81,9 +81,9 @@
               >
                 <q-img
                   v-show="!buscador"
-                  src="https://mty-microwebapps.web.app/img/sdh/mty_sdh_logo_iso.svg"
+                  src="/img/logos/logo_bienestar_animal.svg"
                   spinner-color="white"
-                  style="width: 5rem; object-fit: none;"
+                  style="width: 5.5rem; object-fit: none !important;"
                   alt="Logo Sub Sitio"
                 />
               </div>
@@ -434,8 +434,8 @@
       <div class="col self-center" style="padding-top: 25vh;">
         <div class="q-mx-auto" :style="$q.screen.lt.sm  ? 'max-width: 75%' : 'max-width: 50%'">
           <img
-              src="/img/logos/logo_bolsa_empleo_v1.png"
-              alt="Bolsa de Empleo Monterrey"
+              src="/img/logos/logo_bienestar_animal.svg"
+              alt="Bienestar Animal Monterrey"
             />
         </div>
         <div class="flex justify-center items-center q-pl-xl q-pr-xl q-pt-xl">

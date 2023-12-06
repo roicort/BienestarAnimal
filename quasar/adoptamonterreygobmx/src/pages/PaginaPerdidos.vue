@@ -100,7 +100,7 @@
 <script setup>
 import { ref, inject, reactive } from 'vue';
 
-import markerIcon from '/img/logos/logo_bolsa_empleo_v1.png';
+import markerIcon from '/img/logos/logo_bienestar_animal_min.svg';
 import animalIcon from '/img/animal.png';
 
 import { getPadron } from 'src/boot/utils';
