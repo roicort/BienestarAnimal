@@ -27,7 +27,6 @@ class AnimalCategoria(models.Model):
         verbose_name = "Categoria de animal"
         verbose_name_plural = "Categorias de animales"
 
-
 class AnimalCaracteristica(models.Model):
     nombre = models.CharField(max_length=150, unique=True)
 
