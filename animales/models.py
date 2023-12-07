@@ -216,17 +216,15 @@ class ProcedimientoInline(admin.TabularInline):
 class Adopcion(models.Model):
 
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
-    centro = models.ForeignKey(Centro, on_delete=models.CASCADE)
     fecha_publicacion_inicio = models.DateField(auto_now_add=True)
     fecha_publicacion_fin = models.DateField(default=fecha_publicacion_fin)
     fecha_adopcion = models.DateField(null=True, editable=False)
-    estatus_adopcion = models.BooleanField(null=True, default=None)  # None = pendiente, True = adoptado, False = no adoptado
+    estatus_adopcion = models.BooleanField(null=True, default=False)  # None = pendiente, True = adoptado, False = no adoptado
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     adoptante = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='adoptante')  
 
     def __str__(self):
-        return f"{self.animal} ({self.asociacion})"
+        return f"{self.animal} ({self.animal.asociacion})"
 
     def save(self, *args, **kwargs):
         self_obj = self
@@ -238,7 +236,6 @@ class Adopcion(models.Model):
     class Meta:
         verbose_name = "Adopcion"
         verbose_name_plural = "Adopciones"
-        unique_together = ('animal', 'asociacion')
 
 class PostulacionAdopcion(models.Model):
     """
@@ -315,24 +312,16 @@ class PostulacionAdopcion(models.Model):
         unique_together = ('user', 'animal')
 
 class ReportePerdido(models.Model):
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    
-    fecha_reporte = models.DateField(auto_now_add=True)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, null=True, blank=True)
 
-
-    estatus = models.BooleanField(null=True, default=False)  # None = pendiente, True = aceptada, False = rechazada
-
-    asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE, null=True, blank=True)
-    centro = models.ForeignKey(Centro, on_delete=models.CASCADE, null=True, blank=True)
-
-    llamar_a = models.CharField(max_length=140, null=True, blank=True)
-
+    estatus = models.BooleanField(null=True, default=False)  # None = Desconocido, True = Encontrado, False = Perdido
     descripcion_hechos = models.TextField(null=True, blank=True)
-
+    llamar_a = models.CharField(max_length=140, null=True, blank=True)
+    fecha_reporte = models.DateField(auto_now_add=True)
     geom = models.PointField(null=True, blank=True)
-
-    fecha_encontrado = models.DateField(null=True )
+    fecha_encontrado = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.user} ({self.animal})"
@@ -347,6 +336,32 @@ class ReportePerdido(models.Model):
         verbose_name_plural = "Reportes animales perdidos"
         unique_together = ('user', 'animal')
 
+class ReporteCiudadanoPerdido(models.Model):
+    
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        
+        nombre = models.CharField(max_length=32)
+        foto = models.ImageField(max_length=255, null=True, blank=True)
+        categoria = models.ForeignKey(AnimalCategoria, related_name='categoria_animals_ciudadano', on_delete=models.PROTECT)
+        señas_particulares = models.TextField(null=True, blank=True)
+        estatus = models.BooleanField(null=True, default=False)  # None = Desconocido, True = Encontrado, False = Perdido
+        descripcion_hechos = models.TextField(null=True, blank=True)
+        llamar_a = models.CharField(max_length=140, null=True, blank=True)
+        fecha_reporte = models.DateField(auto_now_add=True)
+        geom = models.PointField(null=True, blank=True)
+        fecha_encontrado = models.DateField(null=True, blank=True)
+    
+        def __str__(self):
+            return f"{self.user} ({self.animal})"
+    
+        def save(self, *args, **kwargs):
+            if self.estatus is True:
+                self.fecha_encontrado = timezone.now().date()
+            super(ReporteCiudadanoPerdido, self).save(*args, **kwargs)
+    
+        class Meta:
+            verbose_name = "Reporte animal perdido ciudadano "
+            verbose_name_plural = "Reportes animales perdidos ciudadano"
 
 class AnimalFavorito(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animales_favoritos')

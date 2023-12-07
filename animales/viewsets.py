@@ -1,19 +1,17 @@
 from django.db.models import Q
 from rest_framework import viewsets, exceptions
-from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, ReportePerdido, Adopcion
+from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, ReportePerdido, Adopcion, ReporteCiudadanoPerdido
 from .serializers import AnimalCategoriaSerializer, AnimalCaracteristicaSerializer, \
     StaffAnimalSerializer, AnimalSerializer, PostulacionAdopcionSerializer, PostulacionAdopcionListCreateSerializer, \
-    AnimalFavoritoSerializer, AnimalFavoritoCreateSerializer, MiPostulacionAdopcionListSerializer, AdopcionSerializer, ReportePerdidoSerializer
+    AnimalFavoritoSerializer, AnimalFavoritoCreateSerializer, MiPostulacionAdopcionListSerializer, AdopcionSerializer, ReportePerdidoSerializer, ReporteCiudadanoPerdidoSerializer
 from rest_framework import permissions
-from django.http import HttpResponse
+#from django.http import HttpResponse
 from asociaciones.models import VinculacionAsociacion
 from .permissions import IsStaffOrVinculacionAsociacionOrReadOnly
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from rest_framework import filters
-from rest_framework.response import Response
+#from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-
-import django.core.serializers as djcore_serialize
 
 class AnimalCategoriaViewSet(viewsets.ModelViewSet):
     queryset = AnimalCategoria.objects.all()
@@ -47,7 +45,7 @@ class AdopcionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsStaffOrVinculacionAsociacionOrReadOnly]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend,filters.OrderingFilter]
     search_fields = ['animal__nombre', 'animal__descripcion', 'animal__categoria__nombre', 'animal__asociacion__nombre']
-    filterset_fields = ['asociacion', 'centro', 'animal__categoria']
+    filterset_fields = ['animal__asociacion', 'animal__centro', 'animal__categoria']
     ordering_fields = ['fecha_publicacion_inicio']
 
 class ReportePerdidoViewSet(viewsets.ModelViewSet):
@@ -60,7 +58,15 @@ class ReportePerdidoViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter,DjangoFilterBackend,filters.OrderingFilter]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+class ReporteCiudadanoPerdidoViewSet(viewsets.ModelViewSet):
 
+    serializer_class = ReporteCiudadanoPerdidoSerializer
+    reportes_perdidos = ReportePerdido.objects.all()
+    #queryset = Animal.objects.filter(id__in=reportes_perdidos.values_list('animal', flat=True))
+    queryset = ReporteCiudadanoPerdido.objects.all()
+    permission_classes = [IsStaffOrVinculacionAsociacionOrReadOnly]
+    filter_backends = [filters.SearchFilter,DjangoFilterBackend,filters.OrderingFilter]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class PostulacionAdopcionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):

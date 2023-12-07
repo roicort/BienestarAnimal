@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_dynamic_fields import DynamicFieldsMixin
 
-from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, Adopcion, ReportePerdido
+from .models import AnimalCategoria, AnimalCaracteristica, Animal, PostulacionAdopcion, AnimalFavorito, Adopcion, ReportePerdido, ReporteCiudadanoPerdido
 from asociaciones.serializers import PubAsociacionSerializer, CentroSerializer
 from asociaciones.models import Centro
 from base.serializers import HabilidadSerializer
@@ -123,12 +123,16 @@ class AnimalSerializer(DynamicFieldsMixin, serializers.ModelSerializer):
 class AdopcionSerializer(serializers.ModelSerializer):
 
     animal_info = AnimalMinSerializer(source='animal', read_only=True)
-    asociacion_info = PubAsociacionSerializer(source='asociacion', read_only=True)
-    categoria = serializers.SerializerMethodField('get_animal_category')
+    asociacion_info = serializers.SerializerMethodField('get_asociacion_info')
+    categoria_info = serializers.SerializerMethodField('get_animal_category')
 
     def get_animal_category(self, instance):
-        categoria = instance.animal.categoria.id
-        return categoria
+        categoria = instance.animal.categoria
+        return AnimalCategoriaSerializer(categoria).data
+
+    def get_asociacion_info(self, instance):
+        asociacion = instance.animal.asociacion
+        return PubAsociacionSerializer(asociacion).data
 
     class Meta:
         model = Adopcion
@@ -136,8 +140,20 @@ class AdopcionSerializer(serializers.ModelSerializer):
 
 
 class ReportePerdidoSerializer(serializers.ModelSerializer):
+
+    animal_info = AnimalMinSerializer(source='animal', read_only=True)
+    asociacion_info = serializers.SerializerMethodField('get_asociacion_info')
+    def get_asociacion_info(self, instance):
+        asociacion = instance.animal.asociacion
+        return PubAsociacionSerializer(asociacion).data
+
     class Meta:
         model = ReportePerdido
+        fields = '__all__'
+
+class ReporteCiudadanoPerdidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReporteCiudadanoPerdido
         fields = '__all__'
 
 class PostulacionAdopcionSerializer(serializers.ModelSerializer):
