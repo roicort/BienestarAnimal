@@ -43,9 +43,9 @@ class AdopcionResource(resources.ModelResource):
 @admin.register(Adopcion)
 class AdopcionAdmin(ImportExportModelAdmin):
 
-    list_display = ('animal','asociacion')
+    list_display = ('animal','id')
     search_fields = ('id', 'animal')
-    list_filter = ('asociacion', ("fecha_publicacion_inicio", DateRangeFilter))
+    list_filter = ('estatus_adopcion',("fecha_publicacion_inicio", DateRangeFilter),)
     change_list_template = "admin/daterange/change_list.html"
 
     resource_classes = [AdopcionResource]
