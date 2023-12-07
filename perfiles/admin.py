@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .models import *
+from .models import PerfilGeneral
+from daterange.filters import DateRangeFilter
+
 # from django.contrib.auth.models import Group
 
 # Register your models here.
 
-admin.site.register(PerfilGeneral)
+#admin.site.register(PerfilGeneral)
 
 # admin.site.unregister(Group)
 
@@ -35,3 +37,11 @@ admin.site.register(PerfilGeneral)
 #
 #
 # admin.site.register(Certificacion, CertificacionAdmin)
+
+@admin.register(PerfilGeneral)
+class PerfilGeneralAdmin(admin.ModelAdmin):
+    list_display = ('user', 'nombres', 'apellidos', 'telefono')
+    search_fields = ('user', 'nombres', 'apellidos', 'telefono')
+    list_filter = ('genero', ("fecha_nacimiento", DateRangeFilter))
+    change_list_template = "admin/daterange/change_list.html"
+    pass
