@@ -1,21 +1,20 @@
 from django.contrib import admin
 from base.admin import CustomGeoModelAdmin
-from .models import *
-from django.contrib.auth.models import Group
-from django import forms
-
-# Register your models here.
-
-admin.site.register(Habilidad)
-admin.site.register(AnimalCategoria)
-admin.site.register(AnimalCaracteristica)
-#admin.site.register(Procedimiento)
+from .models import Habilidad, Animal, AnimalCategoria, AnimalCaracteristica, Adopcion, PostulacionAdopcion, ReportePerdido, Procedimiento, ProcedimientoInline
+#from django.contrib.auth.models import Group
+#from django import forms
 
 ###### Estos recursos son para poder exportar los datos ######
 
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from daterange.filters import DateRangeFilter
+
+# Register your models here.
+
+admin.site.register(Habilidad)
+admin.site.register(AnimalCategoria)
+admin.site.register(AnimalCaracteristica)
 
 ###### Animales 
 
@@ -98,6 +97,5 @@ class ProcedimientoAdmin(ImportExportModelAdmin):
     change_list_template = "admin/daterange/change_list.html"
 
     resource_classes = [ProcedimientoResource]
-
 
 ####################################################################

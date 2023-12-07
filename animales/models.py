@@ -13,10 +13,23 @@ from django.contrib import admin
 # Create your models here.
 
 def fecha_publicacion_fin():
+    """
+    Devuelve la fecha de publicación de un animal perdido
+    """
     return (timezone.now() + timezone.timedelta(days=60)).date()
 
 
 class AnimalCategoria(models.Model):
+    """
+    Categoría de animal
+
+    Descripción: Define la categoría de un animal
+
+    Ejemplo: Perro, Gato, Conejo, etc.
+
+    Args:
+        nombre (CharField): Nombre de la categoría
+    """
     nombre = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -28,6 +41,17 @@ class AnimalCategoria(models.Model):
         verbose_name_plural = "Categorias de animales"
 
 class AnimalCaracteristica(models.Model):
+    """
+    Característica de animal
+
+    Descripción: Define una característica de un animal
+
+    Ejemplo: Peludo, Orejas largas, etc.
+
+    Args:
+        nombre (CharField): Nombre de la característica
+    """
+
     nombre = models.CharField(max_length=150, unique=True)
 
     def __str__(self):
@@ -37,6 +61,31 @@ class AnimalCaracteristica(models.Model):
         ordering = ['id']
 
 class Animal(models.Model):
+    """Animal
+
+    Descripción: Define un animal
+
+    Attributes:
+        nombre (CharField): Nombre del animal
+        categoria (ForeignKey): Categoría del animal
+        descripcion (TextField): Descripción del animal
+        sexo (CharField): Sexo del animal
+        fecha_recepcion (DateField): Fecha de recepción del animal
+        fecha_nacimiento (DateField): Fecha de nacimiento del animal
+        habilidades (ManyToManyField): Habilidades del animal
+        caracteristicas (ManyToManyField): Características del animal
+        foto (ImageField): Foto del animal
+        señas_particulares (TextField): Señas particulares del animal
+        talla (CharField): Talla del animal
+        peso (IntegerField): Peso del animal
+        altura_cruz (IntegerField): Altura a la cruz del animal
+        longitud (IntegerField): Longitud del animal
+        convivencia (ManyToManyField): Convivencia del animal
+        sociable (BooleanField): Sociabilidad del animal
+        apto_niños (BooleanField): Apto para niños del animal
+        adiestramiento_observaciones (TextField): Observaciones de adiestramiento del animal
+        servicios (ManyToManyField): Servicios del animal
+    """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     asociacion = models.ForeignKey(Asociacion, on_delete=models.CASCADE)
@@ -47,6 +96,9 @@ class Animal(models.Model):
     descripcion = models.TextField()
 
     class Sexo(models.TextChoices):
+        """
+        Sexo de animal
+        """
         macho = 'macho', 'Macho'
         hembra = 'hembra', 'Hembra'
 
@@ -64,6 +116,9 @@ class Animal(models.Model):
     ###########################################################################
 
     class Talla(models.TextChoices):
+        """
+        Talla de animal
+        """
         pequeno = 'pequeño', 'Pequeño'
         mediano = 'mediano', 'Mediano'
         grande = 'grande', 'Grande'
@@ -96,6 +151,9 @@ class Animal(models.Model):
 
     @property
     def FotoPreview(self):
+        """
+        Devuelve la foto del animal
+        """
         if self.foto:
             return mark_safe('<img src="{}" style="max-width:200px; max-height:200px"/>'.format(self.foto.url))
         return ""
@@ -123,6 +181,19 @@ class Animal(models.Model):
         verbose_name_plural = "Animales"
 
 class Procedimiento(models.Model):
+    """
+    Procedimiento (Modelo intermedio entre Animal y Servicio)
+
+    Descripción: Define una relación entre un animal y un servicio
+
+    Args:
+        animal (ForeignKey): Animal al que se le aplica el procedimiento
+        servicio (ForeignKey): Servicio que se le aplica al animal
+        fecha_aplicacion (DateField): Fecha de aplicación del procedimiento
+        asociacion (ForeignKey): Asociación que aplica el procedimiento
+        centro (ForeignKey): Centro que aplica el procedimiento
+        descripcion (TextField): Descripción del procedimiento
+    """
 
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
@@ -170,6 +241,34 @@ class Adopcion(models.Model):
         unique_together = ('animal', 'asociacion')
 
 class PostulacionAdopcion(models.Model):
+    """
+    Postulación a adopción
+
+    Descripción: Define una postulación a adopción
+
+    Args:
+        user (ForeignKey): Usuario que postula
+        animal (ForeignKey): Animal al que se postula
+        motivos (TextField): Motivos de la postulación
+        fecha_postulacion (DateField): Fecha de postulación
+        estatus_aceptacion_postulacion (BooleanField): Estatus de aceptación de la postulación
+        fecha_evaluacion_postulacion (DateField): Fecha de evaluación de la postulación
+        cuidados (TextField): Cuidados del animal
+        espacio (TextField): Espacio del animal
+        seguridad (BooleanField): Seguridad del animal
+        techo (BooleanField): Techo del animal
+        salida_calle (BooleanField): Salida a la calle del animal
+        precauciones (TextField): Precauciones del animal
+        destrozos (BooleanField): Destrozos del animal
+        alimentacion (TextField): Alimentación del animal
+        atencion_veterinaria (TextField): Atención veterinaria del animal
+        enfermedades (BooleanField): Enfermedades del animal
+        conservacion (TextField): Conservación del animal
+        esterilizacion (BooleanField): Esterilización del animal
+        consulta_seguimiento (BooleanField): Consulta de seguimiento del animal
+        acuerdo (BooleanField): Acuerdo del animal
+    """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
 

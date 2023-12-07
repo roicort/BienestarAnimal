@@ -55,8 +55,8 @@ INSTALLED_APPS = [
     'import_export',
     'daterange.apps.DateRangeFilterConfig',
     'gisserver',
-    #'wms',
 
+    'django.contrib.admindocs',
 ]
 
 MIDDLEWARE = [

@@ -7,6 +7,7 @@ from animales import views as animalesviews
 #from apirest.wms import MyWmsView
 
 urlpatterns = [
+    path('dadmin/docs/', include('django.contrib.admindocs.urls')),
     path("dadmin/", admin.site.urls, name="djangoadmin"),
     path('rest/v1/auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("rest/v1/", include('apirest.urls')),
