@@ -27,6 +27,7 @@ const useAuthStore = () => {
         ciudad: '',
         localidad: '',
         habilidades: [],
+        telefono: '',
       },
 
       firebaseUserData: { accessToken: null, email: null, emailVerified: false, uid: null },

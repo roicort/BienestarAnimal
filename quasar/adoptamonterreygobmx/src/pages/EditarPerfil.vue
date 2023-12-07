@@ -1,12 +1,6 @@
 <template>
-  <q-page
-    class="row items-center justify-evenly"
-    style="max-width: 1100px; margin: 0 auto"
-  >
-    <div
-      class="col-12 col-md-10 col-lg-10"
-      v-bind:class="$q.screen.lt.sm ? 'q-py-md' : 'q-pa-xl'"
-    >
+  <q-page class="row items-center justify-evenly" style="max-width: 1100px; margin: 0 auto">
+    <div class="col-12 col-md-10 col-lg-10" v-bind:class="$q.screen.lt.sm ? 'q-py-md' : 'q-pa-xl'">
       <div class="text-center">
         <p style="font-size: 30px; margin: 0 0 2px 0">Editar perfil</p>
         <p class="text-grey-8" style="font-size: 0.875rem; font-weight: 400">
@@ -16,108 +10,91 @@
       <div class="row justify-center align-center">
         <div class="col-xs-12">
           <div class="q-py-sm">
-            <q-form
-              @submit.prevent="submitFormulario"
-              ref="formulario"
-              greedy
-              class="q-gutter-lg"
-            >
+            <q-form @submit.prevent="submitFormulario" ref="formulario" greedy class="q-gutter-lg">
               <q-card-section class="q-gutter-md">
-                <q-item-label class="q-pt-sm text-h7 text-grey-9"
-                  >Información general</q-item-label
-                >
+                <q-item-label class="q-pt-sm text-h7 text-grey-9">Información general</q-item-label>
 
-                <mty-form-field-input
-                  :for="formData.nombres"
-                  label="nombres(s)"
-                  required
-                  v-model="formData.nombres"
-                />
+                <template v-if="IDMTY.perfilBasico">
 
-                <mty-form-field-input
-                  :for="formData.apellidos"
-                  label="Apellidos"
-                  required
-                  v-model="formData.apellidos"
-                />
+                  <mty-form-field-input :for="formData.nombres" label="Nombre(s)" required v-model="formData.nombres"
+                    disabled />
 
-                <q-input
-                  dense
-                  outlined
-                  label="Biografía o semblanza personal"
-                  v-model="formData.biografia"
-                  type="textarea"
-                  :rules="[(val) => !!val || 'Biografía requerida']"
-                />
+                  <q-item-label v-if="IDMTY.perfilBasico.nombre != null" caption style="color:#7c4dff; margin-top: 0">
+                    Nombre obtenido de tu cuenta de IDMonterrey+.
+                  </q-item-label>
 
-                <q-select
-                  dense
-                  outlined
-                  label="Genero"
-                  v-model="formData.genero"
-                  :options="pageContext.generosOptions"
-                  type="text"
-                />
+                  <mty-form-field-input :for="formData.apellidos" label="Apellidos" required v-model="formData.apellidos"
+                    disabled />
 
-                <mty-form-field-input
-                      :for="formData.telefono"
-                      label="Teléfono"
-                      type="tel"
-                      required
-                      mask="##########"
-                      v-model="formData.telefono"
-                    />
+                  <q-item-label
+                    v-if="IDMTY.perfilBasico.primer_apellido != null || IDMTY.perfilBasico.segundo_apellido != null"
+                    caption style="color:#7c4dff; margin-top: 0">
+                    Apellidos obtenidos de tu cuenta de IDMonterrey+.
+                  </q-item-label>
 
-                <q-item-label class="q-pt-sm text-h7 text-grey-9"
-                  >Información de residencia</q-item-label
-                >
+                  <mty-form-field-input :for="formData.telefono" label="Teléfono" type="tel" required mask="##########"
+                    v-model="formData.telefono" disabled />
 
-                <q-select
-                  dense
-                  outlined
-                  label="Estado"
-                  v-model="formData.estado"
-                  map-options
-                  :options="pageContext.filteredEstadoOptions"
-                  @filter="filterEstadoOptions"
-                  @update:model-value="preventMunicipiosMismatch()"
-                  use-input
-                  :rules="[(val) => !!val || 'Campo requerido']"
-                />
+                  <q-item-label v-if="IDMTY.perfilBasico.telefono != null" caption style="color:#7c4dff; margin-top: 0">
+                    Teléfono obtenido de tu cuenta de IDMonterrey+.
+                  </q-item-label>
 
-                <q-select
-                  dense
-                  outlined
-                  label="Situación Familiar"
-                  v-model="formData.situacion_familiar"
-                  map-options
-                  :options="pageContext.situacionOptions"
-                  use-input
-                  :rules="[(val) => !!val || 'Campo requerido']"
-                />
+                  <q-item-label class="q-pt-sm text-h7 text-grey-9">Información de residencia</q-item-label>
 
-                <q-select
-                  dense
-                  outlined
-                  label="Municipio"
-                  v-model="formData.ciudad"
-                  map-options
-                  :options="pageContext.filteredMunicipioOptions"
-                  @filter="filterMunicipioOptions"
-                  use-input
-                  :rules="[(val) => !!val || 'Campo requerido']"
-                />
+                  <q-select dense outlined label="Estado" v-model="formData.estado" disabled />
 
-                <mty-form-field-input
-                  :for="formData.domicilio"
-                  label="Domicilio"
-                  required
-                  v-model="formData.domicilio"
-                />
+                  <q-item-label v-if="IDMTY.perfilBasico.estado != null" caption style="color:#7c4dff; margin-top: 0">
+                    Estado obtenido de tu cuenta de IDMonterrey+.
+                  </q-item-label>
 
-                <q-item-label class="q-pt-sm q-pb-sm text-h6 text-grey-9"
-                  >Información para fines estadísticos</q-item-label
-                >
+                  <q-select dense outlined label="Municipio" v-model="formData.ciudad" disabled />
+
+                  <q-item-label v-if="IDMTY.perfilBasico.municipio != null" caption style="color:#7c4dff; margin-top: 0">
+                    Municipio obtenido de tu cuenta de IDMonterrey+.
+                  </q-item-label>
+
+                </template>
+
+                <template v-else>
+
+                  <mty-form-field-input :for="formData.nombres" label="Nombre(s)" required v-model="formData.nombres" />
+
+                  <mty-form-field-input :for="formData.apellidos" label="Apellidos" required
+                    v-model="formData.apellidos" />
+
+                  <mty-form-field-input :for="formData.telefono" label="Teléfono" type="tel" required mask="##########"
+                    v-model="formData.telefono" />
+
+                  <q-item-label class="q-pt-sm text-h7 text-grey-9">Información de residencia</q-item-label>
+
+                  <q-select dense outlined label="Estado" v-model="formData.estado" map-options
+                    :options="pageContext.filteredEstadoOptions" @filter="filterEstadoOptions"
+                    @update:model-value="preventMunicipiosMismatch()" use-input
+                    :rules="[(val) => !!val || 'Campo requerido']" />
+
+                  <q-select dense outlined label="Municipio" v-model="formData.ciudad" map-options
+                    :options="pageContext.filteredMunicipioOptions" @filter="filterMunicipioOptions" use-input
+                    :rules="[(val) => !!val || 'Campo requerido']" />
+
+                </template>
+
+                <q-input dense outlined label="Biografía o semblanza personal" v-model="formData.biografia"
+                  type="textarea" :rules="[(val) => !!val || 'Biografía requerida']" />
+
+                <q-select dense outlined label="Genero" v-model="formData.genero" :options="pageContext.generosOptions"
+                  type="text" />
+
+                <q-select dense outlined label="Situación Familiar" v-model="formData.situacion_familiar" map-options
+                  :options="pageContext.situacionOptions" use-input :rules="[(val) => !!val || 'Campo requerido']" />
+
+                <q-select dense outlined label="Municipio" v-model="formData.ciudad" map-options
+                  :options="pageContext.filteredMunicipioOptions" @filter="filterMunicipioOptions" use-input
+                  :rules="[(val) => !!val || 'Campo requerido']" />
+
+                <mty-form-field-input :for="formData.domicilio" label="Domicilio" required v-model="formData.domicilio" />
+
+                <q-item-label class="q-pt-sm q-pb-sm text-h6 text-grey-9">Información para fines
+                  estadísticos</q-item-label>
                 <q-item-label caption>
                   Esta información es opcional y se utilizará para fines estadísticos y programas especiales.
                 </q-item-label>
@@ -131,16 +108,9 @@
                 <q-item-label caption>
                   Deberás ser mayor de edad para poder registrarte.
                 </q-item-label>
-                <q-date
-                    v-model="formData.fecha_nacimiento"
-                    landscape
-                    mask="YYYY-MM-DD"
-                    class="center"
-                    label="Fecha de nacimiento"
-                    :rules="[(val) => !!val || 'Fecha de nacimiento requerida']"
-                    :navigation-max-year-month="MaxDate"
-                    :default-year-month="MaxDate"
-                  />
+                <q-date v-model="formData.fecha_nacimiento" landscape mask="YYYY-MM-DD" class="center"
+                  label="Fecha de nacimiento" :rules="[(val) => !!val || 'Fecha de nacimiento requerida']"
+                  :navigation-max-year-month="MaxDate" :default-year-month="MaxDate" />
 
 
                 <q-item-label class="q-pt-lg">
@@ -148,24 +118,12 @@
                 </q-item-label>
 
                 <q-item-label caption class="q-pt-sm">
-                  <q-checkbox
-                    dense
-                    outlined
-                    v-model="formData.capacidad_diferente"
-                    color="accent"
-                    class="q-pr-sm"
-                  />
+                  <q-checkbox dense outlined v-model="formData.capacidad_diferente" color="accent" class="q-pr-sm" />
                   Me percibo como una persona con capacidades diferentes.
                 </q-item-label>
 
                 <div class="flex justify-end">
-                  <q-btn
-                    no-caps
-                    type="submit"
-                    color="primary"
-                    label="Guardar"
-                    class="bg-accent"
-                  />
+                  <q-btn no-caps type="submit" color="primary" label="Guardar" class="bg-accent" />
                 </div>
               </q-card-section>
             </q-form>
@@ -182,7 +140,7 @@ import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
 
 import { useAuthStore } from '../stores/auth'
-import { apiAdopta } from '../boot/axios'
+import { apiAdopta, apiIdMty } from '../boot/axios'
 import { getEstados, getGeneros, getMunicipios } from '../boot/utils'
 import MtyFormFieldInput from 'src/components/forms/fields/MtyFormFieldInput.vue'
 
@@ -214,12 +172,53 @@ export default defineComponent({
       filteredMunicipioOptions: [],
     })
 
+    const IDMTY = reactive({
+      perfilBasico: {},
+    })
+
     const formData = ref(authStore.perfilUsuario)
 
-    const tipo_perfil = ref(null)
+    const connectIDMonterrey = async () => {
+      if (authStore.firebaseUserData) {
+        try {
+          const response = await apiIdMty.get('/perfiles/perfil-basico/', {
+            headers: {
+              Authorization: 'Bearer ' + authStore.firebaseUserData.accessToken,
+            },
+          });
+          if (response.data.length > 0) {
+            return response.data[0];
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
 
     onBeforeMount(() => {
       setTimeout(() => {
+
+        try {
+          connectIDMonterrey().then((result) => {
+            IDMTY.perfilBasico = result
+            // Map IDMTY data to form data
+            formData.value.nombres = IDMTY.perfilBasico.nombre
+            formData.value.apellidos = IDMTY.perfilBasico.primer_apellido + ' ' + IDMTY.perfilBasico.segundo_apellido
+            //formData.value.biografia = IDMTY.perfilBasico.biografia
+            formData.value.telefono = IDMTY.perfilBasico.telefono
+            formData.value.fecha_nacimiento = IDMTY.perfilBasico.fecha_nacimiento
+            formData.value.estado = IDMTY.perfilBasico.estado
+            formData.value.ciudad = IDMTY.perfilBasico.municipio
+
+            getMunicipios(formData.value.estado).then((result) => {
+              pageContext.municipioOptions = result
+              pageContext.filteredMunicipioOptions = result
+            })
+          })
+        } catch (error) {
+          console.log(error)
+        }
+
         apiAdopta.get('/base/habilidad/').then((response) => {
           response.data.forEach(function (obj) {
             obj.label = obj.nombre
@@ -296,7 +295,7 @@ export default defineComponent({
         message:
           'Estamos actualizando tu perfil. Espera un momento por favor...',
       })
-      if (formData.value.genero){
+      if (formData.value.genero) {
         formData.value.genero = formData.value.genero.label
       }
       apiAdopta
@@ -408,20 +407,6 @@ export default defineComponent({
     }
 
     return {
-      tipo_perfil,
-      tipos_perfil: [
-        {
-          label: 'Quiero publicar vacantes',
-          value: 'Reclutador',
-          color: 'primary',
-        },
-        {
-          label: 'Quiero aplicar a vacantes',
-          value: 'Aspirante',
-          color: 'primary',
-        },
-      ],
-
       formData,
       submitResult,
       responseStatus,
@@ -435,6 +420,7 @@ export default defineComponent({
       preventMunicipiosMismatch,
       agregarNuevaHabilidad,
       pageContext,
+      IDMTY,
     }
   },
   computed: {

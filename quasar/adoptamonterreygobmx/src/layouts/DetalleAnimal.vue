@@ -426,7 +426,8 @@ checkEsFavorito()
 
 const verifyProfileCompleted = () => {
   if (authStore.firebaseUserData.uid) {
-    if (authStore.localUserData) {
+    if (authStore.perfilUsuario ? (authStore.perfilUsuario.telefono ? true : false) : false) {
+      console.log('localUserData')
       userHasProfile.value = true
     }
   }
