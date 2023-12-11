@@ -91,6 +91,7 @@ Para desplegar la plataforma cualquier servicio de hosting o en un servidor prop
 - [ ] Facilitar la instalación de la plataforma
 - [ ] Crear Dockerfile y Docker-compose
 - [ ] Compartir la plataforma con otros municipios
+- [ ] Mejorar la documentación
 
 # Contribución
 
