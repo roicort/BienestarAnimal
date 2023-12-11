@@ -27,7 +27,7 @@ CSP_IMG_SRC = [
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'PIBA API',
+    'TITLE': 'Bienestar Animal API',
     'DESCRIPTION': 'Plafaforma de Bienestar Animal de Monterrey',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
