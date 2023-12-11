@@ -88,8 +88,9 @@ Para desplegar la plataforma cualquier servicio de hosting o en un servidor prop
 # To Do
 
 - [ ] Autenticación estandar (Actualmente solo se puede usar utilizando la libreria mty_firebase_auth)
+- [ ] Facilitar la instalación de la plataforma
 - [ ] Crear Dockerfile y Docker-compose
-- [ ] Crear documentación de la API
+- [ ] Compartir la plataforma con otros municipios
 
 # Contribución
 
