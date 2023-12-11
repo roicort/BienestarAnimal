@@ -22,6 +22,7 @@ dist/
 
 /static/*
 !/static/*.png
+!/static/*.svg
 
 media/
 downloads/
