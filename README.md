@@ -85,6 +85,12 @@ quasar build
 
 Para desplegar la plataforma cualquier servicio de hosting o en un servidor propio, se debe compilar la plataforma y copiar los archivos generados en la carpeta `dist/spa` en el servidor.
 
+# To Do
+
+- [ ] Autenticación estandar (Actualmente solo se puede usar utilizando la libreria mty_firebase_auth)
+- [ ] Crear Dockerfile y Docker-compose
+- [ ] Crear documentación de la API
+
 # Contribución
 
 Para contribuir al proyecto, se debe crear un fork del repositorio y clonarlo en su computadora. Una vez hecho esto, se debe crear una rama con el nombre de la funcionalidad que se desea agregar. Una vez terminada la funcionalidad, se debe crear un pull request a la rama `master` del repositorio original.
