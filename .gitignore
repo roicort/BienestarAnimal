@@ -19,8 +19,10 @@ mty_firebase_auth/*
 build/
 develop-eggs/
 dist/
+
 /static/*
-!/static/preview.png
+!/static/*.png
+
 media/
 downloads/
 eggs/
