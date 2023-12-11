@@ -44,7 +44,9 @@ Para ejecutar la plataform en producción se debe utilizar Gunicorn.
 gunicorn wsgi:app
 ```
 
-# Instalación (Backend)
+# Instalación (Frontend)
+
+![Preview](static/front.png)
 
 Para instalar la plataforma, se requiere tener instalado [Node.js](https://nodejs.org/en/download/) y [npm](https://www.npmjs.com/get-npm). Una vez instalados, se debe ejecutar el siguiente comando para instalar las dependencias del proyecto:
 
