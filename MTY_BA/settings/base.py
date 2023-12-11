@@ -74,7 +74,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = "MTY_PIBA.urls"
+ROOT_URLCONF = "MTY_BA.urls"
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "MTY_PIBA.wsgi.application"
+WSGI_APPLICATION = "MTY_BA.wsgi.application"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
