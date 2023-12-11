@@ -1,5 +1,19 @@
 {
   "projects": {
-    "default": "mty-god-webservices-dev"
-  }
+    "default": "mty-god-webservices",
+    "production": "mty-god-webservices"
+  },
+  "targets": {
+    "mty-god-webservices": {
+      "hosting": {
+        "mascotas-monterrey": [
+          "hosting"
+        ],
+        "mascotasmonterrey": [
+          "mascotasmonterrey"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

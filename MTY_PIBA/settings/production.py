@@ -5,16 +5,16 @@ DEBUG = False
 SECRET_KEY = "django!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m"
 
 ALLOWED_HOSTS = [
-    "piba.drf.mun.apismty.gob.mx"
+    "bienestaranimal.drf.apismty.gob.mx"
     ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://mascotas.web.app",
-    "mascotas.web.app",
+    "https://mascotasmonterrey.web.app",
+    "mascotasmonterrey.web.app",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://piba.drf.mun.apismty.gob.mx",
+    "https://bienestaranimal.drf.apismty.gob.mx/dadmin/login/?next=/dadmin/",
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "adoptamos",
+    "target": "mascotasmonterrey",
     "public": "dist/spa",
     "ignore": [
       "firebase.json",
