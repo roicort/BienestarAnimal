@@ -14,7 +14,7 @@ CORS_ALLOWED_ORIGINS = [
     ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://bienestaranimal.drf.apismty.gob.mx/dadmin/login/?next=/dadmin/",
+    "https://bienestaranimal.drf.apismty.gob.mx",
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
