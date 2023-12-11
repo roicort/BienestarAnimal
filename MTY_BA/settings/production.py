@@ -12,6 +12,8 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "mascotasmonterrey.web.app",
     "https://mascotasmonterrey.web.app",
+    "huellitas.monterrey.gob.mx",
+    "https://huellitas.monterrey.gob.mx",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
