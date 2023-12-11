@@ -18,3 +18,4 @@ django-admin-interface
 python-dotenv
 django-import-export
 django-daterange-filterspec
+docutils
