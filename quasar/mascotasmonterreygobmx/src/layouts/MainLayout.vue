@@ -15,7 +15,7 @@
         style="text-align: center"
         v-show="pageContext.banner"
       >
-        <span>Adopta Monterrey [Beta] </span> <span class="gt-sm"> - Si tienes comentarios, por favor contáctanos.</span>
+        <span>Mascotas Monterrey [Beta] </span> <span class="gt-sm"> - Si tienes comentarios, por favor contáctanos.</span>
       </q-banner>
     </q-slide-transition>
 
@@ -305,7 +305,7 @@
           no-caps
           disabled
           icon="search"
-          to="/perdidos"
+          to="/"
           name="perdidos"
           label="Buscamos"
         >

@@ -19,27 +19,8 @@
 
         <q-item-section side top class="self-start text-right q-mb-xs">
           <q-item-label caption>
-            hace
             {{
-              Math.floor(
-                (Date.now() -
-                  new Date(mascota.fecha_publicacion_inicio)) /
-                1000 /
-                60 /
-                60 /
-                24
-              )
-            }}
-            {{
-              Math.floor(
-                (Date.now() - new Date(mascota.fecha_publicacion_fin)) /
-                1000 /
-                60 /
-                60 /
-                24
-              ) > 1
-              ? 'días'
-              : 'día'
+              diasdesdepublicacion(mascota.fecha_publicacion_inicio)
             }}
           </q-item-label>
         </q-item-section>
@@ -95,13 +76,16 @@ const componentContext = reactive({
 });
 
 const diasdesdepublicacion = (fecha_publicacion_inicio: any) => {
-  return Math.floor(
+
+  const dias = Math.floor(
     (Date.now() - new Date(fecha_publicacion_inicio)) /
-    1000 /
-    60 /
-    60 /
-    24
-  )
+      1000 /
+      60 /
+      60 /
+      24
+    );
+  // regresar hoy si es 0, ayer si es 1 o hace x dias si es mayor a 1
+  return dias === 0 ? 'Hoy' : dias === 1 ? 'Ayer' : `Hace ${dias} días`;
 }
 
 const setSelectedJob = (job) => {
