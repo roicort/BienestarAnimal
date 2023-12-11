@@ -2,7 +2,20 @@
 
 La Plataforma de Bienestar Animal ofrece una serie de herramientas digitales diseñadas para facilitar la gestión de los animales en los centros de Bienestar Animal en Monterrey. Esta plataforma proporciona soluciones para monitorear a los animales alojados en estos centros, además de facilitar la coordinación de adopciones, gestión de reportes de animales perdidos y el registro de actividades veterinarias. Su objetivo es optimizar la operatividad de los refugios y promover el bienestar animal en la comunidad, garantizando un entorno más seguro y saludable para todos los seres vivos involucrados.
 
+# Arquitectura
+
 ![Preview](static/design.svg)
+
+La plataforma está compuesta por dos componentes principales: el backend y el frontend. El backend está desarrollado en Python utilizando Django y con un diseño API First. El frontend está desarrollado en Vue.js utilizando el framework Quasar.
+
+Actualmente, la plataforma cuenta con las siguientes funcionalidades:
+
+- Registro de animales
+- Registro de actividades veterinarias
+- Registro de reportes de animales perdidos
+- Registro de adopciones
+
+Adicionalmente se ha desarrollado una SPA (Single Page Application) que permite visualizar los animales en adopción en la plataforma así como los reportes de animales perdidos.
 
 # Instalación (Backend)
 
