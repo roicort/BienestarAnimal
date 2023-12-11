@@ -19,6 +19,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://bienestaranimal.drf.apismty.gob.mx",
 ]
 
+CSP_IMG_SRC = [
+    "'self'",
+    "https://storage.googleapis.com"
+]
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SPECTACULAR_SETTINGS = {
