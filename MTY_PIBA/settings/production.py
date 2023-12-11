@@ -5,15 +5,17 @@ DEBUG = False
 SECRET_KEY = "django!q*mt*uab7p=rmo4zpk%uz9*o7ux#ayp+%&x)fp6kq(734lp^m"
 
 ALLOWED_HOSTS = [
-    "bienestaranimal.drf.apismty.gob.mx"
+    "bienestaranimal.drf.apismty.gob.mx",
+    "https://bienestaranimal.drf.apismty.gob.mx",
     ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://mascotasmonterrey.web.app",
     "mascotasmonterrey.web.app",
+    "https://mascotasmonterrey.web.app",
     ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "bienestaranimal.drf.apismty.gob.mx",
     "https://bienestaranimal.drf.apismty.gob.mx",
 ]
 
