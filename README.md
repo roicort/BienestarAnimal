@@ -1,10 +1,15 @@
+</br>
+<img src="static/readme/logo_bienestar_animal_min.svg" width=20% height=20%>
+
 # Plataforma de Bienestar Animal
 
 La Plataforma de Bienestar Animal ofrece una serie de herramientas digitales diseñadas para facilitar la gestión de los animales en los centros de Bienestar Animal en Monterrey. Esta plataforma proporciona soluciones para monitorear a los animales alojados en estos centros, además de facilitar la coordinación de adopciones, gestión de reportes de animales perdidos y el registro de actividades veterinarias. Su objetivo es optimizar la operatividad de los refugios y promover el bienestar animal en la comunidad, garantizando un entorno más seguro y saludable para todos los seres vivos involucrados.
 
+
+
 # Arquitectura
 
-![Preview](static/design.svg)
+![Preview](static/readme/design.svg)
 
 La plataforma está compuesta por dos componentes principales: el backend y el frontend. El backend está desarrollado en Python utilizando Django y con un diseño API First. El frontend está desarrollado en Vue.js utilizando el framework Quasar.
 
@@ -19,7 +24,7 @@ Adicionalmente se ha desarrollado una SPA (Single Page Application) que permite 
 
 # Instalación (Backend)
 
-![Preview](static/preview.png)
+![Preview](static/readme/preview.png)
 
 Para instalar la plataforma, se requiere tener instalado [Python](https://www.python.org/downloads/) y [pip](https://pip.pypa.io/en/stable/installing/). Se recomienda utilizar un entorno virtual para instalar las dependencias del proyecto. Para crear un entorno virtual, se puede utilizar el siguiente comando:
 
@@ -59,7 +64,7 @@ gunicorn wsgi:app
 
 # Instalación (Frontend)
 
-![Preview](static/front.png)
+![Preview](static/readme/front.png)
 
 Para instalar la plataforma, se requiere tener instalado [Node.js](https://nodejs.org/en/download/) y [npm](https://www.npmjs.com/get-npm). Una vez instalados, se debe ejecutar el siguiente comando para instalar las dependencias del proyecto:
 
